@@ -11,7 +11,7 @@ const mono = IBM_Plex_Mono({
 export const metadata = {
   title: 'Earshot — reads pages aloud, on your machine',
   description:
-    'A browser extension that reads any web page aloud in a natural voice. The speech model runs on your own GPU. Nothing you read is ever uploaded.',
+    'A browser extension that reads any web page aloud in a natural voice. The speech model runs on your own computer. Nothing you read is ever uploaded.',
   icons: { icon: '/favicon.png' },
   openGraph: {
     title: 'Earshot — reads pages aloud, on your machine',

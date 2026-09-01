@@ -52,14 +52,14 @@ async function play(i) {
 // Returns a human-readable reason, or null when WebGPU is usable.
 async function webgpuProblem() {
   if (!('gpu' in navigator) || !navigator.gpu) {
-    return 'This browser has no WebGPU support. Chrome, Edge or Arc 113+ on a recent machine is required.';
+    return 'This browser can\u2019t run the speech model. It needs WebGPU \u2014 try Chrome, Edge or Arc 113 or newer.';
   }
   try {
     const adapter = await navigator.gpu.requestAdapter();
-    if (!adapter) return 'No compatible GPU was found. WebGPU is present but no adapter is available.';
+    if (!adapter) return 'This computer can\u2019t run the speech model. Your browser supports WebGPU but no compatible device was available.';
     // presence of an adapter is not enough — the device must actually come up
     const dev = await adapter.requestDevice();
-    if (!dev) return 'The GPU could not be initialised for WebGPU.';
+    if (!dev) return 'This computer can\u2019t run the speech model \u2014 graphics acceleration failed to start.';
     return null;
   } catch (e) {
     return 'WebGPU failed to start: ' + (e && e.message ? e.message : e);

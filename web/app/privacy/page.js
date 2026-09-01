@@ -23,7 +23,7 @@ export default function Privacy() {
         <p>Earshot reads the text of the page you are viewing so it can speak it aloud.
           That text is processed <strong>entirely inside your own browser</strong>. It is never
           sent to us and never sent to a third party. Speech is generated locally by the
-          Kokoro-82M model running on your GPU through WebGPU.</p>
+          Kokoro-82M model running on your own computer.</p>
 
         <h2>The only network request</h2>
         <p>On first use, Earshot downloads the Kokoro-82M voice model (about 310 MB) from

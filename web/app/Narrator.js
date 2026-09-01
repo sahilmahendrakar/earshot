@@ -158,7 +158,7 @@ export default function Narrator({ sentences, total }) {
         </h1>
         <p className="sub">
           A browser extension that speaks web pages in a natural voice. The speech model runs
-          on <b>your own GPU</b> — not a server. Nothing you read is ever uploaded, and there
+          on <b>your own computer</b> — not a server. Nothing you read is ever uploaded, and there
           is no account, no API key, and nothing to pay for.
         </p>
         <canvas ref={canvasRef} className="field" aria-hidden="true" />

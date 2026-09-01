@@ -9,8 +9,8 @@ Earshot reads the text of the web page you are currently viewing so it can
 speak it aloud. That text is processed **entirely inside your own browser**. It is
 never sent to us, and never sent to any third party.
 
-Speech is generated locally by the Kokoro-82M model running on your computer's GPU
-via WebGPU. There is no server component, no API key, and no account.
+Speech is generated locally by the Kokoro-82M model running on your own computer.
+There is no server component, no API key, and no account.
 
 ## The only network request the extension makes
 On first use, the extension downloads the Kokoro-82M voice model (approximately

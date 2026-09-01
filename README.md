@@ -9,7 +9,7 @@
 Earshot is a browser extension that speaks web pages in a natural voice and highlights
 each sentence **on the real page** as it reads.
 
-The speech model runs on your own GPU via WebGPU. There is no server, no account, no API
+The speech model runs on your own computer. There is no server, no account, no API
 key, and nothing to pay for. Nothing you read is ever uploaded.
 
 ## How it works
