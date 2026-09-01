@@ -7,6 +7,9 @@ Earshot — Read Pages Aloud
 Reads any web page aloud in a natural voice. Runs entirely on your machine — no
 account, no API key, nothing uploaded.
 
+## Source code
+https://github.com/sahilmahendrakar/earshot  (Apache-2.0)
+
 ## Category
 Accessibility  (alternative: Productivity)
 
@@ -72,6 +75,9 @@ PRIVACY
 Earshot collects nothing and transmits nothing. There is no analytics, no
 telemetry, and no server. The only network request it ever makes is the one-time
 model download from Hugging Face.
+
+SOURCE
+Earshot is open source, Apache-2.0: https://github.com/sahilmahendrakar/earshot
 
 OPEN SOURCE COMPONENTS
 Kokoro-82M (Apache-2.0), kokoro-js (Apache-2.0), Transformers.js (Apache-2.0),

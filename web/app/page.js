@@ -64,8 +64,7 @@ export default function Home() {
       <footer>
         <span>© {new Date().getFullYear()} Earshot</span>
         <a href="/privacy">Privacy</a>
-        {/* TODO: point at the public repo once it exists */}
-        <a href="#">Source</a>
+        <a href="https://github.com/sahilmahendrakar/earshot">Source</a>
         <span className="sp">Voice: Kokoro-82M · af_heart · generated locally</span>
       </footer>
     </div>

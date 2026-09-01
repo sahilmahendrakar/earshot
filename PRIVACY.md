@@ -43,4 +43,4 @@ identifiers, no advertising.
 Any change to this policy will be published with a new version of the extension.
 
 ## Contact
-<ADD YOUR CONTACT EMAIL HERE>
+Open an issue at https://github.com/sahilmahendrakar/earshot/issues

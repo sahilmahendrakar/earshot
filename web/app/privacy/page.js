@@ -54,8 +54,7 @@ export default function Privacy() {
         <p>Any change to this policy will be published with a new version of the extension.</p>
 
         <h2>Contact</h2>
-        <p>{/* TODO: real contact address before submitting to the Chrome Web Store */}
-          <code>you@example.com</code></p>
+        <p>Open an issue at <a href="https://github.com/sahilmahendrakar/earshot/issues" style={{color:'var(--sig)'}}>github.com/sahilmahendrakar/earshot/issues</a>.</p>
       </article>
 
       <footer>
