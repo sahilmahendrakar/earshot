@@ -17,6 +17,10 @@ export default function Narrator({ sentences, total }) {
   const audioCtx = useRef(null);
   const analyser = useRef(null);
 
+  const hero = sentences.filter((s) => s.zone === 'hero');
+  const body = sentences.filter((s) => s.zone !== 'hero');
+  const heroCount = hero.length;
+
   const [playing, setPlaying] = useState(false);
   const [idx, setIdx] = useState(-1);
   const [elapsed, setElapsed] = useState(0);
@@ -35,8 +39,11 @@ export default function Narrator({ sentences, total }) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, size, size);
 
-    // keep every ring inside the canvas: the outermost was being clipped
-    const cx = size * 0.46, cy = size * 0.5;
+    // The arcs open leftward (0.62pi -> 1.38pi), so the drawn mass runs from
+    // cx-maxR to cx+coreR, not symmetrically about cx. Centring that span inside
+    // the canvas puts the origin right of centre, otherwise the whole field looks
+    // shoved to the left with dead space beside it.
+    const cx = size * 0.66, cy = size * 0.5;
     const rings = 5;
     for (let i = 0; i < rings; i++) {
       const t = i / (rings - 1);
@@ -137,7 +144,25 @@ export default function Narrator({ sentences, total }) {
 
   return (
     <>
-      <canvas ref={canvasRef} className="field" aria-hidden="true" />
+      <section className="hero">
+        <div className="kicker">Local · Open source · Free forever</div>
+        <h1>
+          {hero.map((s, i) => (
+            <span key={i} className={`sent${idx === i ? ' live' : ''}${idx > i ? ' spoken' : ''}`}
+                  onClick={() => seek(i)}>
+              {s.text}
+              <span className="rule" ref={(el) => (ruleRefs.current[i] = el)} />
+              {i < hero.length - 1 ? <br /> : null}
+            </span>
+          ))}
+        </h1>
+        <p className="sub">
+          A browser extension that speaks web pages in a natural voice. The speech model runs
+          on <b>your own GPU</b> — not a server. Nothing you read is ever uploaded, and there
+          is no account, no API key, and nothing to pay for.
+        </p>
+        <canvas ref={canvasRef} className="field" aria-hidden="true" />
+      </section>
 
       <section className="passage">
         <div className={`label${playing ? ' live' : ''}`}>
@@ -158,17 +183,20 @@ export default function Narrator({ sentences, total }) {
         </div>
 
         <p className="script">
-          {sentences.map((s, i) => (
-            <span
-              key={i}
-              className={`sent${i === idx ? ' live' : ''}${idx > i ? ' spoken' : ''}`}
-              onClick={() => seek(i)}
-              title="Read from here"
-            >
-              {s.text}{' '}
-              <span className="rule" ref={(el) => (ruleRefs.current[i] = el)} />
-            </span>
-          ))}
+          {body.map((s, k) => {
+            const i = k + heroCount;
+            return (
+              <span
+                key={i}
+                className={`sent${i === idx ? ' live' : ''}${idx > i ? ' spoken' : ''}`}
+                onClick={() => seek(i)}
+                title="Read from here"
+              >
+                {s.text}{' '}
+                <span className="rule" ref={(el) => (ruleRefs.current[i] = el)} />
+              </span>
+            );
+          })}
         </p>
 
 

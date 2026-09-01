@@ -1,45 +1,71 @@
 {
-  "total": 34.167,
+  "total": 37.396,
   "sentences": [
     {
-      "text": "Every other read-aloud tool sends the page you're reading to a server.",
+      "zone": "hero",
+      "text": "Any page,",
       "start": 0.0,
-      "end": 4.106
+      "end": 1.016
     },
     {
+      "zone": "hero",
+      "text": "read aloud,",
+      "start": 1.016,
+      "end": 2.022
+    },
+    {
+      "zone": "hero",
+      "text": "on your machine.",
+      "start": 2.022,
+      "end": 3.225
+    },
+    {
+      "zone": "body",
+      "text": "Every other read-aloud tool sends the page you're reading to a server.",
+      "start": 3.225,
+      "end": 7.333
+    },
+    {
+      "zone": "body",
       "text": "Earshot doesn't.",
-      "start": 4.106,
-      "end": 5.402
+      "start": 7.333,
+      "end": 8.63
     },
     {
+      "zone": "body",
       "text": "It runs a real speech model, Kokoro, eighty-two million parameters, entirely on your own machine.",
-      "start": 5.402,
-      "end": 11.496
+      "start": 8.63,
+      "end": 14.727
     },
     {
+      "zone": "body",
       "text": "The words you are hearing right now were made by that model, in a browser, on a laptop.",
-      "start": 11.496,
-      "end": 16.565
+      "start": 14.727,
+      "end": 19.797
     },
     {
+      "zone": "body",
       "text": "Nothing you read is ever uploaded. There is no account, no API key, and no server to trust.",
-      "start": 16.565,
-      "end": 22.852
+      "start": 19.797,
+      "end": 26.083
     },
     {
+      "zone": "body",
       "text": "It is open source, and it is free forever.",
-      "start": 22.852,
-      "end": 25.558
+      "start": 26.083,
+      "end": 28.786
     },
     {
+      "zone": "body",
       "text": "The voice downloads once, about three hundred and ten megabytes, and then it works offline.",
-      "start": 25.558,
-      "end": 30.872
+      "start": 28.786,
+      "end": 34.101
     },
     {
+      "zone": "body",
       "text": "Install it, open any article, and press Alt plus R.",
-      "start": 30.872,
-      "end": 34.167
+      "start": 34.101,
+      "end": 37.396
     }
   ]
 }

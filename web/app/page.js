@@ -15,16 +15,6 @@ export default function Home() {
         <span className="meta">Runs <b>entirely</b> on your machine</span>
       </header>
 
-      <section className="hero">
-        <div className="kicker">Open source · Free forever</div>
-        <h1>Any page,<br/>read aloud,<br/><em>on your machine.</em></h1>
-        <p className="sub">
-          A browser extension that speaks web pages in a natural voice. The speech model runs
-          on <b>your own GPU</b> — not a server. Nothing you read is ever uploaded, and there
-          is no account, no API key, and nothing to pay for.
-        </p>
-      </section>
-
       <Narrator sentences={n.sentences} total={n.total} />
 
       <section className="proof">

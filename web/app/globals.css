@@ -67,7 +67,15 @@ h1{
   margin:0; max-width:15ch;
   opacity:0; animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) forwards;
 }
-h1 em{font-style:italic; color:var(--sig)}
+h1 .sent{color:rgba(232,244,242,.82); cursor:pointer; transition:color .4s ease}
+h1 .sent.live{color:var(--paper); text-shadow:0 0 40px rgba(143,230,166,.3)}
+h1 .sent.spoken{color:rgba(232,244,242,.5)}
+h1 .sent .rule{bottom:.02em; height:3px}
+/* the closing line carries the accent, the way the original <em> did — it
+   still lifts to full white while it is being spoken */
+h1 .sent:last-of-type{font-style:italic; color:var(--sig)}
+h1 .sent:last-of-type.live{color:var(--paper)}
+h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.55)}
 .sub{
   margin:28px 0 0; max-width:44ch; font-size:14.5px; line-height:1.7; color:var(--dim);
   opacity:0; animation:rise 1s .42s cubic-bezier(.2,.7,.2,1) forwards;
@@ -104,12 +112,12 @@ h1 em{font-style:italic; color:var(--sig)}
 }
 /* every sentence starts dim; the spoken one lifts out of the page */
 .sent{
-  display:inline; color:rgba(232,244,242,.26);
+  display:inline; color:rgba(232,244,242,.60);
   transition:color .45s ease, text-shadow .45s ease;
   position:relative; cursor:pointer;
 }
-.sent:hover{color:rgba(232,244,242,.5)}
-.sent.spoken{color:rgba(232,244,242,.55)}
+.sent:hover{color:rgba(232,244,242,.85)}
+.sent.spoken{color:rgba(232,244,242,.40)}
 .sent.live{
   color:var(--paper);
   text-shadow:0 0 32px rgba(143,230,166,.28);
