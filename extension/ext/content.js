@@ -122,11 +122,12 @@
   }
   function ensureStyle() {
     const dark = pageLuminance() < 0.5;
-    // Teal, in the brand family, rather than the icon's saturated signal green:
-    // saturated green fails contrast in dark mode (4.3:1) and reads semantically as
-    // "diff added" over body text. This passes both modes (11.2:1 / 7.2:1).
-    const bg = dark ? '#1f5f6b' : '#d2ecea';
-    const fg = dark ? '#ffffff' : '#08313a';
+    // Blue rather than the brand teal/green: this sits on other people's pages for
+    // long stretches, and blue is the universal "selected text" convention, so it
+    // reads as active without looking like a diff or a brand overlay.
+    // Contrast: 12.2:1 light, 6.5:1 dark — both well past WCAG AA.
+    const bg = dark ? '#2f5f9e' : '#cfe4ff';
+    const fg = dark ? '#ffffff' : '#0b2340';
     const prev = document.getElementById('kokoro-hl-style');
     if (prev && prev.dataset.dark === String(dark)) return;
     if (prev) prev.remove();
