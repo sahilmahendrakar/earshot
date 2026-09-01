@@ -1,0 +1,45 @@
+{
+  "total": 34.167,
+  "sentences": [
+    {
+      "text": "Every other read-aloud tool sends the page you're reading to a server.",
+      "start": 0.0,
+      "end": 4.106
+    },
+    {
+      "text": "Earshot doesn't.",
+      "start": 4.106,
+      "end": 5.402
+    },
+    {
+      "text": "It runs a real speech model, Kokoro, eighty-two million parameters, entirely on your own machine.",
+      "start": 5.402,
+      "end": 11.496
+    },
+    {
+      "text": "The words you are hearing right now were made by that model, in a browser, on a laptop.",
+      "start": 11.496,
+      "end": 16.565
+    },
+    {
+      "text": "Nothing you read is ever uploaded. There is no account, no API key, and no server to trust.",
+      "start": 16.565,
+      "end": 22.852
+    },
+    {
+      "text": "It is open source, and it is free forever.",
+      "start": 22.852,
+      "end": 25.558
+    },
+    {
+      "text": "The voice downloads once, about three hundred and ten megabytes, and then it works offline.",
+      "start": 25.558,
+      "end": 30.872
+    },
+    {
+      "text": "Install it, open any article, and press Alt plus R.",
+      "start": 30.872,
+      "end": 34.167
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+/* Palette lifted from the icon: deep teal ground, aqua->green accent. */
+:root{
+  color-scheme:light dark;
+  /* Accent colours are lifted from the icon; the surface stays transparent so the
+     popup sits on Chrome's own chrome and follows the browser theme. */
+  --fg:#12232a; --mut:#5d7880; --line:rgba(0,0,0,.13); --card:rgba(0,0,0,.035);
+  --acc1:#3fb3b8; --acc2:#5ac98a; --accText:#04333d;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --fg:#eaf6f5; --mut:#8fb3bb; --line:rgba(255,255,255,.13); --card:rgba(255,255,255,.06);
+         --acc1:#78dcdd; --acc2:#8fe6a6; --accText:#013b47; }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; width:296px; color:var(--fg);
+  background:transparent;
+  font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.hero{text-align:center;padding:20px 18px 16px}
+.hero img{width:52px;height:52px;border-radius:13px;display:block;margin:0 auto 9px;
+  box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.hero h1{margin:0;font-size:15px;font-weight:650;letter-spacing:.2px}
+.hero p{margin:4px 0 0;font-size:11.5px;color:var(--mut);line-height:1.4}
+
+.body{padding:0 16px 0}
+.field{margin-bottom:12px}
+label{display:block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--mut);margin-bottom:6px;font-weight:600}
+select{
+  width:100%;appearance:none;-webkit-appearance:none;
+  padding:9px 30px 9px 11px;border:1px solid var(--line);border-radius:9px;
+  background:var(--card);color:var(--fg);font-size:13px;cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='7'><path d='M1 1l4.5 4.5L10 1' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 11px center;
+  transition:border-color .15s, background-color .15s;
+}
+select:hover{border-color:rgba(255,255,255,.2)}
+select:focus{outline:none;border-color:var(--acc1);box-shadow:0 0 0 3px rgba(120,220,221,.16)}
+option{color:var(--fg)}
+optgroup{color:var(--mut);font-style:normal}
+
+button{
+  width:100%;margin-top:2px;padding:11px;border:0;border-radius:10px;cursor:pointer;
+  background:linear-gradient(135deg,var(--acc1),var(--acc2));
+  color:var(--accText);font-size:13.5px;font-weight:650;letter-spacing:.2px;
+  box-shadow:0 4px 14px rgba(120,220,221,.22);
+  transition:transform .12s, box-shadow .15s, filter .15s;
+}
+button:hover{filter:brightness(1.06);box-shadow:0 6px 18px rgba(120,220,221,.3)}
+button:active{transform:translateY(1px)}
+
+#saved{height:0;overflow:hidden;text-align:center;font-size:11px;color:var(--acc2);
+  opacity:0;transition:opacity .18s,height .18s,margin .18s;margin-top:0}
+#saved.on{opacity:1;height:15px;margin-top:9px}
+
+.foot{border-top:1px solid var(--line);margin-top:16px;padding:13px 16px 15px;
+  color:var(--mut);font-size:11px;line-height:1.65}
+.keys{display:flex;justify-content:center;gap:14px;margin-bottom:9px;flex-wrap:wrap}
+kbd{background:var(--card);border:1px solid var(--line);border-radius:5px;
+  padding:2px 6px;font:10.5px ui-monospace,SFMono-Regular,monospace;color:var(--fg)}
+.foot .ctx{text-align:center;margin-bottom:9px}
+.priv{text-align:center;color:var(--mut);opacity:.85;font-size:10.5px;line-height:1.55}
+.priv b{color:var(--mut);font-weight:600}
+</style></head><body>
+
+<div class="hero">
+  <img src="icons/icon128.png" alt="">
+  <h1>Earshot</h1>
+  <p>Reads pages aloud, entirely on your device</p>
+</div>
+
+<div class="body">
+  <div class="field">
+    <label for="voice">Voice</label>
+    <select id="voice">
+      <optgroup label="American English">
+        <option value="af_heart">af_heart — A</option>
+        <option value="af_bella">af_bella — A−</option>
+        <option value="af_nicole">af_nicole — B−</option>
+        <option value="af_aoede">af_aoede — C+</option>
+        <option value="af_kore">af_kore — C+</option>
+        <option value="am_michael">am_michael — C+</option>
+        <option value="am_puck">am_puck — C+</option>
+        <option value="am_fenrir">am_fenrir — C+</option>
+      </optgroup>
+      <optgroup label="British English">
+        <option value="bf_emma">bf_emma — B−</option>
+        <option value="bf_isabella">bf_isabella — C</option>
+        <option value="bm_george">bm_george — C</option>
+        <option value="bm_fable">bm_fable — C</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="speed">Default speed</label>
+    <select id="speed">
+      <option value="0.9">0.9×</option><option value="1" selected>1×</option>
+      <option value="1.25">1.25×</option><option value="1.5">1.5×</option>
+      <option value="1.75">1.75×</option><option value="2">2×</option>
+    </select>
+  </div>
+
+  <button id="read">Read this page</button>
+  <div id="saved"></div>
+</div>
+
+<div class="foot">
+  <div class="keys">
+    <span><kbd>⌥</kbd><kbd>R</kbd> read</span>
+    <span><kbd>⌥</kbd><kbd>P</kbd> play / pause</span>
+  </div>
+  <div class="ctx">Right-click any word → <b>Read aloud from here</b></div>
+  <div class="priv"><b>Nothing leaves your machine.</b><br>
+    Voice model (~310 MB) downloads once, then works offline.</div>
+</div>
+
+<script src="popup.js"></script></body></html>
