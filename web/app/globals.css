@@ -54,7 +54,17 @@ body{
 .mast .meta b{color:var(--sig); font-weight:500}
 
 /* ---------- hero ---------- */
-.hero{padding:clamp(40px,7vh,78px) 0 clamp(24px,4vh,44px); position:relative}
+.hero{padding:clamp(36px,6vh,68px) 0 clamp(20px,3vh,36px); position:relative;
+  display:grid; grid-template-columns:minmax(0,1.15fr) auto; gap:clamp(16px,3vw,40px);
+  align-items:center}
+/* one cell for the copy: its internal rhythm is normal flow, not grid rows */
+.hero__copy{min-width:0}
+/* the instrument and its single control read as one object */
+.instrument{display:flex; flex-direction:column; align-items:center; gap:4px}
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .instrument{margin-top:14px}
+}
 .kicker{
   font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--sig);
   display:flex; align-items:center; gap:10px; margin-bottom:26px;
@@ -62,32 +72,40 @@ body{
 }
 .kicker::before{content:''; width:34px; height:1px; background:var(--sig); opacity:.6}
 h1{
-  font-family:var(--font-display); font-weight:400;
-  font-size:clamp(2.7rem, 7.6vw, 6.6rem); line-height:.95; letter-spacing:-.02em;
+  font-family:var(--font-display); font-weight:400; text-wrap:balance;
+  font-size:clamp(2.4rem, 6.0vw, 5.3rem); line-height:.98; letter-spacing:-.02em;
   margin:0; max-width:15ch;
   opacity:0; animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) forwards;
 }
-h1 .sent{color:rgba(232,244,242,.82); cursor:pointer; transition:color .4s ease}
-h1 .sent.live{color:var(--paper); text-shadow:0 0 40px rgba(143,230,166,.3)}
-h1 .sent.spoken{color:rgba(232,244,242,.5)}
+h1 .sent{color:var(--paper); cursor:pointer; transition:color .4s ease}
+.reading h1 .sent{color:rgba(232,244,242,.40)}
+.reading h1 .sent.live{color:var(--paper); text-shadow:0 0 40px rgba(143,230,166,.3)}
+.reading h1 .sent.spoken{color:rgba(232,244,242,.34)}
 h1 .sent .rule{bottom:.02em; height:3px}
 /* the closing line carries the accent, the way the original <em> did — it
    still lifts to full white while it is being spoken */
 h1 .sent:last-of-type{font-style:italic; color:var(--sig)}
-h1 .sent:last-of-type.live{color:var(--paper)}
-h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.55)}
+.reading h1 .sent:last-of-type{color:rgba(143,230,166,.42)}
+.reading h1 .sent:last-of-type.live{color:var(--paper)}
+.reading h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.36)}
 .sub{
   margin:28px 0 0; max-width:44ch; font-size:14.5px; line-height:1.7; color:var(--dim);
   opacity:0; animation:rise 1s .42s cubic-bezier(.2,.7,.2,1) forwards;
 }
+.sub .sent{color:var(--dim)}
+.reading .sub .sent{color:rgba(95,139,147,.55)}
+.reading .sub .sent.live{color:var(--paper)}
 .sub b{color:var(--paper); font-weight:500}
+/* the third standfirst sentence wraps across several lines, where a single
+   full-width rule underneath reads as a stray divider rather than a sweep */
+.sub .sent:nth-of-type(n+3) .rule{display:none}
 
 /* ---------- the instrument: arcs that react to real amplitude ---------- */
 .field{
-  position:absolute; right:-4vw; top:1vh; width:min(56vw,640px); aspect-ratio:1;
+  width:clamp(210px,26vw,340px); aspect-ratio:1;
   pointer-events:none; opacity:0; animation:fade 1.6s .5s ease forwards;
 }
-@media (max-width:900px){ .field{position:relative; right:auto; width:100%; margin-top:8px} }
+@media (max-width:900px){ .field{width:min(78vw,360px)} }
 
 /* ---------- the narrated passage — the whole point ---------- */
 .passage{
@@ -110,15 +128,17 @@ h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.55)}
   font-size:clamp(1.6rem, 3.5vw, 3.05rem); line-height:1.34; letter-spacing:-.01em;
   max-width:var(--measure);
 }
-/* every sentence starts dim; the spoken one lifts out of the page */
+/* At rest the page reads as an ordinary page — full contrast, no dimming.
+   Dimming only starts once there is a spoken sentence to contrast against. */
 .sent{
-  display:inline; color:rgba(232,244,242,.60);
+  display:inline; color:var(--paper);
   transition:color .45s ease, text-shadow .45s ease;
   position:relative; cursor:pointer;
 }
-.sent:hover{color:rgba(232,244,242,.85)}
-.sent.spoken{color:rgba(232,244,242,.40)}
-.sent.live{
+.reading .sent{color:rgba(232,244,242,.42)}
+.reading .sent:hover{color:rgba(232,244,242,.72)}
+.reading .sent.spoken{color:rgba(232,244,242,.32)}
+.reading .sent.live{
   color:var(--paper);
   text-shadow:0 0 32px rgba(143,230,166,.28);
 }
@@ -132,7 +152,7 @@ h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.55)}
 .sent.live .rule{opacity:.95; box-shadow:0 0 14px rgba(143,230,166,.55)}
 
 /* ---------- controls ---------- */
-.controls{display:flex; align-items:center; gap:18px; margin:0 0 clamp(28px,5vh,44px); flex-wrap:wrap}
+.controls{display:flex; align-items:center; gap:16px; margin:0; flex-wrap:wrap; justify-content:center}
 .listen{
   appearance:none; border:0; cursor:pointer; position:relative;
   display:inline-flex; align-items:center; gap:13px;

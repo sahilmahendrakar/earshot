@@ -18,8 +18,10 @@ export default function Narrator({ sentences, total }) {
   const analyser = useRef(null);
 
   const hero = sentences.filter((s) => s.zone === 'hero');
-  const body = sentences.filter((s) => s.zone !== 'hero');
+  const sub  = sentences.filter((s) => s.zone === 'sub');
+  const body = sentences.filter((s) => s.zone === 'body');
   const heroCount = hero.length;
+  const subCount = sub.length;
 
   const [playing, setPlaying] = useState(false);
   const [idx, setIdx] = useState(-1);
@@ -140,11 +142,24 @@ export default function Narrator({ sentences, total }) {
     if (a.paused) toggle();
   };
 
+  // Idle pages read as normal pages. Dimming only makes sense once there is a
+  // "current" sentence to contrast against.
+  const reading = playing || idx >= 0;
+
   const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2,'0')}:${String(Math.floor(s % 60)).padStart(2,'0')}`;
+
+  // keeps the <b> emphasis while the sentence is still one narratable span
+  const emph = (text) => {
+    const key = 'your own computer';
+    const i = text.indexOf(key);
+    if (i < 0) return text;
+    return (<>{text.slice(0, i)}<b>{key}</b>{text.slice(i + key.length)}</>);
+  };
 
   return (
     <>
-      <section className="hero">
+      <section className={`hero${reading ? ' reading' : ''}`}>
+        <div className="hero__copy">
         <div className="kicker">Local · Open source · Free forever</div>
         <h1>
           {hero.map((s, i) => (
@@ -157,21 +172,23 @@ export default function Narrator({ sentences, total }) {
           ))}
         </h1>
         <p className="sub">
-          A browser extension that speaks web pages in a natural voice. The speech model runs
-          on <b>your own computer</b> — not a server. Nothing you read is ever uploaded, and there
-          is no account, no API key, and nothing to pay for.
+          {sub.map((s, k) => {
+            const i = k + heroCount;
+            return (
+              <span key={i} className={`sent${i === idx ? ' live' : ''}${idx > i ? ' spoken' : ''}`}
+                    onClick={() => seek(i)} title="Read from here">
+                {emph(s.text)}{' '}
+                <span className="rule" ref={(el) => (ruleRefs.current[i] = el)} />
+              </span>
+            );
+          })}
         </p>
-        <canvas ref={canvasRef} className="field" aria-hidden="true" />
-      </section>
-
-      <section className="passage">
-        <div className={`label${playing ? ' live' : ''}`}>
-          <span className="dot" />
-          {playing ? 'Now speaking — Kokoro-82M, voice af_heart' : 'Press listen. The page will read itself.'}
         </div>
 
-        <div className="controls">
-          <button className="listen" onClick={toggle}>
+        <div className="instrument">
+          <canvas ref={canvasRef} className="field" aria-hidden="true" />
+          <div className="controls">
+            <button className="listen" onClick={toggle}>
             {playing ? (
               <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><rect width="4" height="14" rx="1.2"/><rect x="8" width="4" height="14" rx="1.2"/></svg>
             ) : (
@@ -179,12 +196,21 @@ export default function Narrator({ sentences, total }) {
             )}
             {playing ? 'Pause' : 'Listen'}
           </button>
-          <span className="elapsed">{mmss(elapsed)} / {mmss(total)}</span>
+            <span className="elapsed">{mmss(elapsed)} / {mmss(total)}</span>
+          </div>
         </div>
+      </section>
+
+      <section className={`passage${reading ? ' reading' : ''}`}>
+        <div className={`label${playing ? ' live' : ''}`}>
+          <span className="dot" />
+          {playing ? 'Now speaking — Kokoro-82M, voice af_heart' : 'Press listen. The page will read itself.'}
+        </div>
+
 
         <p className="script">
           {body.map((s, k) => {
-            const i = k + heroCount;
+            const i = k + heroCount + subCount;
             return (
               <span
                 key={i}

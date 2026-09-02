@@ -1,5 +1,5 @@
 {
-  "total": 37.396,
+  "total": 43.403,
   "sentences": [
     {
       "zone": "hero",
@@ -11,61 +11,73 @@
       "zone": "hero",
       "text": "read aloud,",
       "start": 1.016,
-      "end": 2.022
+      "end": 2.025
     },
     {
       "zone": "hero",
       "text": "on your machine.",
-      "start": 2.022,
-      "end": 3.225
+      "start": 2.025,
+      "end": 3.228
+    },
+    {
+      "zone": "sub",
+      "text": "A browser extension that speaks web pages in a natural voice.",
+      "start": 3.228,
+      "end": 7.232
+    },
+    {
+      "zone": "sub",
+      "text": "The speech model runs on your own computer, not a server.",
+      "start": 7.232,
+      "end": 10.706
+    },
+    {
+      "zone": "sub",
+      "text": "Nothing you read is ever uploaded, and there is no account, no API key, and nothing to pay for.",
+      "start": 10.706,
+      "end": 16.932
     },
     {
       "zone": "body",
       "text": "Every other read-aloud tool sends the page you're reading to a server.",
-      "start": 3.225,
-      "end": 7.333
+      "start": 16.932,
+      "end": 21.015
     },
     {
       "zone": "body",
       "text": "Earshot doesn't.",
-      "start": 7.333,
-      "end": 8.63
+      "start": 21.015,
+      "end": 22.311
     },
     {
       "zone": "body",
-      "text": "It runs a real speech model, Kokoro, eighty-two million parameters, entirely on your own machine.",
-      "start": 8.63,
-      "end": 14.727
+      "text": "It runs Kokoro, an eighty-two million parameter speech model, right here in the browser.",
+      "start": 22.311,
+      "end": 27.777
     },
     {
       "zone": "body",
-      "text": "The words you are hearing right now were made by that model, in a browser, on a laptop.",
-      "start": 14.727,
-      "end": 19.797
-    },
-    {
-      "zone": "body",
-      "text": "Nothing you read is ever uploaded. There is no account, no API key, and no server to trust.",
-      "start": 19.797,
-      "end": 26.083
+      "text": "The words you are hearing right now were made by that model, on this machine.",
+      "start": 27.777,
+      "end": 32.093
     },
     {
       "zone": "body",
       "text": "It is open source, and it is free forever.",
-      "start": 26.083,
-      "end": 28.786
+      "start": 32.093,
+      "end": 34.793
     },
     {
       "zone": "body",
       "text": "The voice downloads once, about three hundred and ten megabytes, and then it works offline.",
-      "start": 28.786,
-      "end": 34.101
+      "start": 34.793,
+      "end": 40.108
     },
     {
       "zone": "body",
       "text": "Install it, open any article, and press Alt plus R.",
-      "start": 34.101,
-      "end": 37.396
+      "start": 40.108,
+      "end": 43.403
     }
   ]
 }
