@@ -179,7 +179,6 @@ export default function Narrator({ sentences, total }) {
               <span key={i} className={`sent${i === idx ? ' live' : ''}${idx > i ? ' spoken' : ''}`}
                     onClick={() => seek(i)} title="Read from here">
                 {emph(s.text)}{' '}
-                <span className="rule" ref={(el) => (ruleRefs.current[i] = el)} />
               </span>
             );
           })}
@@ -206,7 +205,6 @@ export default function Narrator({ sentences, total }) {
                 title="Read from here"
               >
                 {s.text}{' '}
-                <span className="rule" ref={(el) => (ruleRefs.current[i] = el)} />
               </span>
             );
           })}

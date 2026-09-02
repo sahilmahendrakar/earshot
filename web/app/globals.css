@@ -96,18 +96,17 @@ h1 .sent:last-of-type{font-style:italic; color:var(--sig)}
 .reading h1 .sent:last-of-type.live{color:var(--paper)}
 .reading h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.36)}
 .sub{
-  margin:28px 0 0; max-width:44ch; font-size:14.5px; line-height:1.7; color:var(--dim);
+  margin:28px 0 0; max-width:44ch; font-size:14.5px; line-height:1.7; color:rgba(232,244,242,.74);
   opacity:0; animation:rise 1s .42s cubic-bezier(.2,.7,.2,1) forwards;
 }
-.sub .sent{color:var(--dim)}
-.reading .sub .sent{color:rgba(95,139,147,.55)}
+.sub .sent{color:rgba(232,244,242,.74)}
+.reading .sub .sent{color:rgba(232,244,242,.34)}
 .reading .sub .sent.live{color:var(--paper)}
 .sub b{color:var(--paper); font-weight:500}
 .reading .sub .sent b{color:inherit}
 .reading .sub .sent.live b{color:var(--paper)}
 /* the third standfirst sentence wraps across several lines, where a single
    full-width rule underneath reads as a stray divider rather than a sweep */
-.sub .sent:nth-of-type(n+2) .rule{display:none}
 
 /* ---------- the instrument: arcs that react to real amplitude ---------- */
 .field{
