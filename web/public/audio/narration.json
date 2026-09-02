@@ -1,16 +1,16 @@
 {
-  "total": 44.052,
+  "total": 44.129,
   "sentences": [
     {
       "zone": "hero",
       "text": "Any page,",
       "start": 0.0,
-      "end": 1.016
+      "end": 1.014
     },
     {
       "zone": "hero",
       "text": "read aloud,",
-      "start": 1.016,
+      "start": 1.014,
       "end": 2.025
     },
     {
@@ -21,63 +21,63 @@
     },
     {
       "zone": "sub",
-      "text": "A browser extension that speaks web pages in a natural voice.",
+      "text": "A browser extension that reads web pages in a natural voice.",
       "start": 3.228,
-      "end": 7.23
+      "end": 7.308
     },
     {
       "zone": "sub",
       "text": "The speech model runs on your own computer, not a server.",
-      "start": 7.23,
-      "end": 10.702
+      "start": 7.308,
+      "end": 10.78
     },
     {
       "zone": "sub",
       "text": "Nothing it reads is ever uploaded, and there is no account, no API key, and nothing to pay for.",
-      "start": 10.702,
-      "end": 17.011
+      "start": 10.78,
+      "end": 17.084
     },
     {
       "zone": "body",
       "text": "Every other text-to-speech extension sends the page you're reading to a server.",
-      "start": 17.011,
-      "end": 21.667
+      "start": 17.084,
+      "end": 21.74
     },
     {
       "zone": "body",
       "text": "Earshot doesn't.",
-      "start": 21.667,
-      "end": 22.963
+      "start": 21.74,
+      "end": 23.037
     },
     {
       "zone": "body",
       "text": "It runs Kokoro, an eighty-two million parameter speech model, right here in the browser.",
-      "start": 22.963,
-      "end": 28.426
+      "start": 23.037,
+      "end": 28.502
     },
     {
       "zone": "body",
       "text": "The words you are hearing right now were made by that model, on this machine.",
-      "start": 28.426,
-      "end": 32.742
+      "start": 28.502,
+      "end": 32.819
     },
     {
       "zone": "body",
       "text": "It is open source, and it is free forever.",
-      "start": 32.742,
-      "end": 35.443
+      "start": 32.819,
+      "end": 35.519
     },
     {
       "zone": "body",
       "text": "The voice downloads once, about three hundred and ten megabytes, and then it works offline.",
-      "start": 35.443,
-      "end": 40.757
+      "start": 35.519,
+      "end": 40.833
     },
     {
       "zone": "body",
       "text": "Install it, open any article, and press Alt plus R.",
-      "start": 40.757,
-      "end": 44.052
+      "start": 40.833,
+      "end": 44.129
     }
   ]
 }
