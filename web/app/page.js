@@ -17,6 +17,38 @@ export default function Home() {
 
       <Narrator sentences={n.sentences} total={n.total} />
 
+      {/* Plates. Real captures, framed like figures in a printed piece — a
+          hairline, a caption, and nothing else competing with the image. */}
+      <section className="plates">
+        <div className="plates__lede">
+          <span className="eyebrow">What it looks like</span>
+          <p>Sentences light up on the page itself — not in a stripped-down reader
+             pane beside it. The controls stay out of the way.</p>
+        </div>
+
+        <figure className="plate plate--wide">
+          <div className="plate__frame">
+            <img src="/shots/shot-dark.png" alt="Earshot reading an essay on a dark-themed site, the current sentence highlighted on the page" />
+          </div>
+          <figcaption><b>01</b> The spoken sentence is highlighted in place, on the page itself.</figcaption>
+        </figure>
+
+        <div className="plates__pair">
+          <figure className="plate">
+            <div className="plate__frame">
+              <img src="/shots/shot-light.png" alt="Earshot reading a light-themed essay" />
+            </div>
+            <figcaption><b>02</b> Light or dark — the highlight reads the page&rsquo;s own colours.</figcaption>
+          </figure>
+          <figure className="plate plate--narrow">
+            <div className="plate__frame plate__frame--popup">
+              <img src="/shots/shot-popup.png" alt="Earshot settings: voice and speed" />
+            </div>
+            <figcaption><b>03</b> Twelve voices, graded. Nothing else to configure.</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section className="proof">
         <div>
           <h3>Local, not "private"</h3>
