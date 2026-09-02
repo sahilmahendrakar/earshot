@@ -157,7 +157,8 @@ export default function Narrator({ sentences, total }) {
   };
 
   return (
-    <>
+    <div className="read-area">
+      <div className="read-area__main">
       <section className={`hero${reading ? ' reading' : ''}`}>
         <div className="hero__copy">
         <div className="kicker">Local · Open source · Free forever</div>
@@ -185,20 +186,6 @@ export default function Narrator({ sentences, total }) {
         </p>
         </div>
 
-        <div className="instrument">
-          <canvas ref={canvasRef} className="field" aria-hidden="true" />
-          <div className="controls">
-            <button className="listen" onClick={toggle}>
-            {playing ? (
-              <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><rect width="4" height="14" rx="1.2"/><rect x="8" width="4" height="14" rx="1.2"/></svg>
-            ) : (
-              <svg width="13" height="15" viewBox="0 0 13 15" fill="currentColor"><path d="M12.2 6.3a.8.8 0 0 1 0 1.4L1.6 14.3A.8.8 0 0 1 .4 13.6V1.4A.8.8 0 0 1 1.6.7z"/></svg>
-            )}
-            {playing ? 'Pause' : 'Listen'}
-          </button>
-            <span className="elapsed">{mmss(elapsed)} / {mmss(total)}</span>
-          </div>
-        </div>
       </section>
 
       <section className={`passage${reading ? ' reading' : ''}`}>
@@ -229,6 +216,25 @@ export default function Narrator({ sentences, total }) {
         <audio ref={audioRef} src="/audio/narration.mp3" preload="auto"
                onEnded={() => { setPlaying(false); setIdx(-1); idxRef.current = -1; levelRef.current = 0; }} />
       </section>
-    </>
+      </div>
+
+      {/* stays with you while you read the hero and the passage, then releases */}
+      <aside className="rail">
+        <div className="instrument">
+          <canvas ref={canvasRef} className="field" aria-hidden="true" />
+          <div className="controls">
+            <button className="listen" onClick={toggle}>
+            {playing ? (
+              <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><rect width="4" height="14" rx="1.2"/><rect x="8" width="4" height="14" rx="1.2"/></svg>
+            ) : (
+              <svg width="13" height="15" viewBox="0 0 13 15" fill="currentColor"><path d="M12.2 6.3a.8.8 0 0 1 0 1.4L1.6 14.3A.8.8 0 0 1 .4 13.6V1.4A.8.8 0 0 1 1.6.7z"/></svg>
+            )}
+            {playing ? 'Pause' : 'Listen'}
+          </button>
+            <span className="elapsed">{mmss(elapsed)} / {mmss(total)}</span>
+          </div>
+        </div>
+      </aside>
+    </div>
   );
 }

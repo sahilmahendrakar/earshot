@@ -27,7 +27,7 @@ body{
   color:var(--paper);
   font-family:var(--font-mono), ui-monospace, monospace;
   min-height:100vh;
-  overflow-x:hidden;
+  overflow-x:clip;
 }
 /* film grain — keeps the flat gradients from looking synthetic */
 .grain{
@@ -54,16 +54,23 @@ body{
 .mast .meta b{color:var(--sig); font-weight:500}
 
 /* ---------- hero ---------- */
-.hero{padding:clamp(36px,6vh,68px) 0 clamp(20px,3vh,36px); position:relative;
-  display:grid; grid-template-columns:minmax(0,1.15fr) auto; gap:clamp(16px,3vw,40px);
-  align-items:center}
-/* one cell for the copy: its internal rhythm is normal flow, not grid rows */
+/* hero + passage share a main column; the instrument rides alongside in a rail.
+   NOT named .reading — that class is the playback state that drives dimming. */
+.read-area{display:grid; grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(20px,4vw,60px); align-items:stretch}
+.read-area__main{min-width:0}
+/* full-height so the sticky instrument has somewhere to travel */
+.rail{position:relative; align-self:stretch}
+/* sticky, so it stays with you through the hero and the passage and then
+   releases at the cards rather than floating over the rest of the page */
+.instrument{position:sticky; top:clamp(24px,16vh,150px);
+  display:flex; flex-direction:column; align-items:center; gap:10px}
+.hero{padding:clamp(36px,6vh,68px) 0 clamp(20px,3vh,36px); position:relative}
 .hero__copy{min-width:0}
-/* the instrument and its single control read as one object */
-.instrument{display:flex; flex-direction:column; align-items:center; gap:4px}
 @media (max-width:900px){
-  .hero{grid-template-columns:minmax(0,1fr)}
-  .instrument{margin-top:14px}
+  .read-area{grid-template-columns:minmax(0,1fr)}
+  .rail{order:-1}
+  .instrument{position:static; margin:0 auto 8px}
 }
 .kicker{
   font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--sig);
@@ -102,10 +109,10 @@ h1 .sent:last-of-type{font-style:italic; color:var(--sig)}
 
 /* ---------- the instrument: arcs that react to real amplitude ---------- */
 .field{
-  width:clamp(210px,26vw,340px); aspect-ratio:1;
+  width:clamp(280px,34vw,470px); aspect-ratio:1;
   pointer-events:none; opacity:0; animation:fade 1.6s .5s ease forwards;
 }
-@media (max-width:900px){ .field{width:min(78vw,360px)} }
+@media (max-width:900px){ .field{width:min(72vw,340px)} }
 
 /* ---------- the narrated passage — the whole point ---------- */
 .passage{
