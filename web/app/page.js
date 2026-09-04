@@ -17,36 +17,34 @@ export default function Home() {
 
       <Narrator sentences={n.sentences} total={n.total} />
 
-      {/* Plates. Real captures, framed like figures in a printed piece — a
-          hairline, a caption, and nothing else competing with the image. */}
-      <section className="plates">
-        <div className="plates__lede">
-          <span className="eyebrow">What it looks like</span>
-          <p>Sentences light up on the page itself — not in a stripped-down reader
-             pane beside it. The controls stay out of the way.</p>
+      {/* One showpiece rather than three thumbnails. Real capture, in a real
+          browser frame, lit from behind, with the thing you should look at
+          actually labelled. */}
+      <section className="showcase">
+        <div className="showcase__head">
+          <span className="eyebrow">Seeing it work</span>
+          <h2>It highlights the page you&rsquo;re already&nbsp;on.</h2>
+          <p>Not a stripped-down reader view beside the article — the article itself,
+             with the spoken sentence lit as it goes.</p>
         </div>
 
-        <figure className="plate plate--wide">
-          <div className="plate__frame">
-            <img src="/shots/shot-dark.png" alt="Earshot reading an essay on a dark-themed site, the current sentence highlighted on the page" />
+        <figure className="showcase__stage">
+          <div className="showcase__glow" aria-hidden="true" />
+          <div className="browser">
+            <div className="browser__bar">
+              <span className="browser__dots"><i/><i/><i/></span>
+              <span className="browser__url">darioamodei.com/essay/machines-of-loving-grace</span>
+            </div>
+            <div className="browser__view">
+              <img src="/shots/shot-dark.png"
+                   alt="Earshot reading an essay: the sentence currently being spoken is highlighted directly on the page" />
+              <span className="callout" aria-hidden="true">
+                <span className="callout__line" />
+                <span className="callout__text">the sentence being spoken</span>
+              </span>
+            </div>
           </div>
-          <figcaption><b>01</b> The spoken sentence is highlighted in place, on the page itself.</figcaption>
         </figure>
-
-        <div className="plates__pair">
-          <figure className="plate">
-            <div className="plate__frame">
-              <img src="/shots/shot-light.png" alt="Earshot reading a light-themed essay" />
-            </div>
-            <figcaption><b>02</b> Light or dark — the highlight reads the page&rsquo;s own colours.</figcaption>
-          </figure>
-          <figure className="plate plate--narrow">
-            <div className="plate__frame plate__frame--popup">
-              <img src="/shots/shot-popup.png" alt="Earshot settings: voice and speed" />
-            </div>
-            <figcaption><b>03</b> Twelve voices, graded. Nothing else to configure.</figcaption>
-          </figure>
-        </div>
       </section>
 
       <section className="proof">
