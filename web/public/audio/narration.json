@@ -1,5 +1,5 @@
 {
-  "total": 103.32,
+  "total": 105.195,
   "sentences": [
     {
       "zone": "hero",
@@ -33,165 +33,171 @@
     },
     {
       "zone": "sub",
-      "text": "Nothing it reads is ever uploaded, and there is no account, no API key, and nothing to pay for.",
+      "text": "It works offline and is free.",
       "start": 10.945,
-      "end": 17.33
+      "end": 12.82
+    },
+    {
+      "zone": "sub",
+      "text": "Nothing it reads is ever uploaded, and there is no account, no API key, and nothing to pay for.",
+      "start": 12.82,
+      "end": 19.205
     },
     {
       "zone": "body",
       "text": "Every other text-to-speech extension sends the page you're reading to a server.",
-      "start": 17.33,
-      "end": 22.055
+      "start": 19.205,
+      "end": 23.93
     },
     {
       "zone": "body",
       "text": "Chickadee doesn't.",
-      "start": 22.055,
-      "end": 23.405
+      "start": 23.93,
+      "end": 25.28
     },
     {
       "zone": "body",
       "text": "It runs Kokoro, an eighty-two million parameter speech model, right here in the browser.",
-      "start": 23.405,
-      "end": 28.9
+      "start": 25.28,
+      "end": 30.775
     },
     {
       "zone": "body",
       "text": "The words you are hearing right now were made by that model, on this machine.",
-      "start": 28.9,
-      "end": 33.255
+      "start": 30.775,
+      "end": 35.13
     },
     {
       "zone": "body",
       "text": "It is open source, and it is free forever.",
-      "start": 33.255,
-      "end": 35.915
+      "start": 35.13,
+      "end": 37.79
     },
     {
       "zone": "body",
       "text": "The voice downloads once, about three hundred and ten megabytes, and then it works offline.",
-      "start": 35.915,
-      "end": 41.355
+      "start": 37.79,
+      "end": 43.23
     },
     {
       "zone": "body",
       "text": "Install it, open any article, and press Alt plus R.",
-      "start": 41.355,
-      "end": 44.985
+      "start": 43.23,
+      "end": 46.86
     },
     {
       "zone": "showcase-h",
       "text": "It highlights the page you’re already on.",
-      "start": 44.985,
-      "end": 47.15
+      "start": 46.86,
+      "end": 49.025
     },
     {
       "zone": "showcase-p",
       "text": "The article itself, with the spoken sentence lit as it goes.",
-      "start": 47.15,
-      "end": 51.01
+      "start": 49.025,
+      "end": 52.885
     },
     {
       "zone": "proof-1h",
       "text": "Local and private",
-      "start": 51.01,
-      "end": 52.53
+      "start": 52.885,
+      "end": 54.405
     },
     {
       "zone": "proof-1p",
       "text": "The model executes in your browser via WebGPU.",
-      "start": 52.53,
-      "end": 56.22
+      "start": 54.405,
+      "end": 58.095
     },
     {
       "zone": "proof-1p",
       "text": "There is no server to send anything to, so there is nothing to leak.",
-      "start": 56.22,
-      "end": 60.055
+      "start": 58.095,
+      "end": 61.93
     },
     {
       "zone": "proof-2h",
       "text": "Reads the real page",
-      "start": 60.055,
-      "end": 61.645
+      "start": 61.93,
+      "end": 63.52
     },
     {
       "zone": "proof-2p",
       "text": "Sentences are highlighted on the page itself, right where you are reading.",
-      "start": 61.645,
-      "end": 65.965
+      "start": 63.52,
+      "end": 67.84
     },
     {
       "zone": "proof-2p",
       "text": "Right-click any word to start from there.",
-      "start": 65.965,
-      "end": 68.115
+      "start": 67.84,
+      "end": 69.99
     },
     {
       "zone": "proof-3h",
       "text": "Works offline",
-      "start": 68.115,
-      "end": 69.395
+      "start": 69.99,
+      "end": 71.27
     },
     {
       "zone": "proof-3p",
       "text": "One ~310 MB voice download on first use.",
-      "start": 69.395,
-      "end": 73.705
+      "start": 71.27,
+      "end": 75.58
     },
     {
       "zone": "proof-3p",
       "text": "After that, it never touches the network again.",
-      "start": 73.705,
-      "end": 76.545
+      "start": 75.58,
+      "end": 78.42
     },
     {
       "zone": "proof-3p",
       "text": "You can use it on a plane, in a tunnel, or in the wilderness.",
-      "start": 76.545,
-      "end": 79.965
+      "start": 78.42,
+      "end": 81.84
     },
     {
       "zone": "proof-4h",
       "text": "Free forever",
-      "start": 79.965,
-      "end": 81.075
+      "start": 81.84,
+      "end": 82.95
     },
     {
       "zone": "proof-4p",
       "text": "Open source, with nothing to pay for — no subscription, no upsell.",
-      "start": 81.075,
-      "end": 85.325
+      "start": 82.95,
+      "end": 87.2
     },
     {
       "zone": "proof-4p",
       "text": "The voice is a small open model that lives in your browser, and always will.",
-      "start": 85.325,
-      "end": 89.905
+      "start": 87.2,
+      "end": 91.78
     },
     {
       "zone": "install-h",
       "text": "Install it and press ⌥ R",
-      "start": 89.905,
-      "end": 92.075
+      "start": 91.78,
+      "end": 93.95
     },
     {
       "zone": "install-req",
       "text": "Chrome-based browsers · requires WebGPU",
-      "start": 92.075,
-      "end": 95.52
+      "start": 93.95,
+      "end": 97.395
     },
     {
       "zone": "install-reqs",
       "text": "Needs a WebGPU-capable browser and machine.",
-      "start": 95.52,
-      "end": 99.105
+      "start": 97.395,
+      "end": 100.98
     },
     {
       "zone": "install-reqs",
       "text": "Chickadee checks on first run and tells you plainly if yours can’t run it.",
-      "start": 99.105,
-      "end": 103.32
+      "start": 100.98,
+      "end": 105.195
     }
   ]
 }
