@@ -1,7 +1,7 @@
 # Chrome Web Store listing — draft copy
 
 ## Name
-Chickadee — Read Pages Aloud
+Chickadee
 
 ## Short description (max 132 chars)
 Reads any web page aloud in a natural voice. Runs entirely on your machine — no

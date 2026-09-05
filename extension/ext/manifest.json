@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chickadee \u2014 Read Pages Aloud",
+  "name": "Chickadee",
   "version": "1.0.0",
   "description": "Reads any web page aloud in a natural voice, highlighting each sentence as it goes. Runs fully on your device.",
   "permissions": [
