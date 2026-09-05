@@ -21,7 +21,7 @@ const FLIGHT = 1, LANDING = 2, PERCHED = 3, TILT = 4,
 
 // Two phrases get a watercolour wash that spreads under them as they are spoken.
 // Everything else just lifts back to full ink while the rest of the page dims.
-const WASHED = new Set(['locally.', "Chickadee doesn't."]);
+const WASHED = new Set(['read aloud,', "Chickadee doesn't."]);
 
 // The birdsong bed: a loop of public-domain chickadee recordings, played through
 // Web Audio so it can be faded rather than switched. It sits under everything
