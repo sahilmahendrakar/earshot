@@ -1,4 +1,5 @@
 import { Spectral, Courier_Prime, Homemade_Apple } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const display = Spectral({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
       <body>
         <div className="vignette" aria-hidden="true" />
         {children}
+        <Analytics />
       </body>
     </html>
   );

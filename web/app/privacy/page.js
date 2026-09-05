@@ -49,8 +49,10 @@ export default function Privacy() {
         </ul>
 
         <h2>Analytics and tracking</h2>
-        <p>There are none. No analytics, no telemetry, no crash reporting, no cookies,
+        <p>The extension has none. No analytics, no telemetry, no crash reporting, no cookies,
           no identifiers, no advertising.</p>
+        <p>This website uses Vercel Web Analytics to count page views. It sets no cookies and
+          stores no personal identifiers; the extension never talks to it.</p>
 
         <h2>Changes</h2>
         <p>Any change to this policy will be published with a new version of the extension.</p>
