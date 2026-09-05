@@ -154,9 +154,10 @@
   function mkBtn(label, title, fn) {
     const b = document.createElement('button');
     b.textContent = label; b.title = title;
-    b.style.cssText = 'all:unset;cursor:pointer;padding:5px 9px;border-radius:999px;color:#fff;line-height:1;font-size:14px;';
-    b.onmouseenter = () => b.style.background = 'rgba(255,255,255,.16)';
-    b.onmouseleave = () => b.style.background = 'transparent';
+    b.style.cssText = 'all:unset;cursor:pointer;padding:6px 10px;border-radius:50% 50% 48% 52% / 55% 45% 55% 45%;' +
+      'color:#2a2724;line-height:1;font-size:14px;font-family:inherit;transition:background .15s,color .15s;';
+    b.onmouseenter = () => { b.style.background = '#2a2724'; b.style.color = '#efe9dc'; };
+    b.onmouseleave = () => { b.style.background = 'transparent'; b.style.color = '#2a2724'; };
     b.onclick = (e) => { e.stopPropagation(); fn(); };
     return b;
   }
@@ -164,22 +165,25 @@
     if (bar) return bar;
     bar = document.createElement('div');
     bar.id = 'kokoro-bar';
+    // A slip of paper with an ink border, like the rest of the brand: warm, not a
+    // black pill. Hand-drawn oval radius, typewriter face, shadow like a card on a desk.
     bar.style.cssText = 'position:fixed;bottom:22px;left:50%;transform:translateX(-50%);' +
-      'z-index:2147483647;display:flex;align-items:center;gap:2px;padding:7px 10px;' +
-      'border-radius:999px;background:#1c1c1e;color:#fff;box-shadow:0 6px 22px rgba(0,0,0,.35);' +
-      'font:13px -apple-system,system-ui,sans-serif;';
+      'z-index:2147483647;display:flex;align-items:center;gap:4px;padding:8px 12px;' +
+      'border-radius:52% 48% 50% 50% / 45% 55% 45% 55%;background:#efe9dc;color:#2a2724;' +
+      'border:1.5px solid #2a2724;box-shadow:0 10px 26px -10px rgba(40,30,10,.55);' +
+      'font:13px "Courier Prime","Courier New",Courier,monospace;letter-spacing:.02em;';
     const status = document.createElement('span');
     status.id = 'kokoro-status';
     // Only surfaces the first-run model download and hard errors. Stays hidden
     // during normal playback so the bar is just: prev, play/pause, next, speed, stop.
-    status.style.cssText = 'padding:0 8px;color:#aaa;font-size:12px;white-space:nowrap;display:none;';
+    status.style.cssText = 'padding:0 8px;color:#6b6250;font-size:12px;white-space:nowrap;display:none;';
     const playBtn = mkBtn('❚❚', 'Play / pause', () => send({ type: 'KL_TOGGLE' }));
     playBtn.id = 'kokoro-play';
     const speed = document.createElement('select');
-    speed.style.cssText = 'all:unset;cursor:pointer;color:#fff;font-size:12px;padding:0 4px;';
+    speed.style.cssText = 'all:unset;cursor:pointer;color:#2a2724;font-size:12px;padding:0 6px;font-family:inherit;';
     [['0.9','0.9x'],['1','1x'],['1.25','1.25x'],['1.5','1.5x'],['1.75','1.75x'],['2','2x']]
       .forEach(([v,t]) => { const o=document.createElement('option'); o.value=v; o.textContent=t;
-        o.style.color='#000'; if(v==='1') o.selected=true; speed.appendChild(o); });
+        o.style.color='#2a2724'; if(v==='1') o.selected=true; speed.appendChild(o); });
     speed.onchange = (e) => send({ type: 'KL_SPEED', speed: parseFloat(e.target.value) });
     bar.append(
       mkBtn('‹', 'Previous sentence', () => send({ type: 'KL_PREV' })),
@@ -258,7 +262,7 @@
   function start(onReady) {
     onReadyCb = onReady || null;
     sentences = collect();
-    if (!sentences.length) { alert('Earshot: no readable text found on this page.'); return; }
+    if (!sentences.length) { alert('Chickadee: no readable text found on this page.'); return; }
     cacheBoxes();
     addEventListener('resize', cacheBoxes, { passive: true });
     ensureStyle();
@@ -313,7 +317,7 @@
         // No WebGPU: nothing will ever play. Say why, and clear the UI so the
         // user isn't left staring at controls that cannot work.
         const s2 = document.getElementById('kokoro-status');
-        if (s2) { s2.style.display = ''; s2.style.color = '#ffb4b4'; s2.textContent = d.reason; }
+        if (s2) { s2.style.display = ''; s2.style.color = '#8a3a2a'; s2.textContent = d.reason; }
         setPlay(false);
         if (frame) { frame.remove(); frame = null; }
         setTimeout(() => { const b = document.getElementById('kokoro-bar'); if (b) b.remove(); bar = null; }, 9000);

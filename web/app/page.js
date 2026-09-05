@@ -8,42 +8,37 @@ export default function Home() {
   );
 
   return (
-    <div className="shell">
+    <div className="sheet">
+      <div className="wash wash--tan" aria-hidden="true" />
+
       <header className="mast">
-        <img src="/icon.png" alt="" />
-        <span className="word">Earshot</span>
-        <span className="meta">Runs <b>entirely</b> on your machine</span>
+        <span className="word">Chickadee</span>
+        <span className="note">runs entirely on your machine</span>
+        <span className="meta">Local · Open source · Free forever</span>
       </header>
 
       <Narrator sentences={n.sentences} total={n.total} />
 
-      {/* One showpiece rather than three thumbnails. Real capture, in a real
-          browser frame, lit from behind, with the thing you should look at
-          actually labelled. */}
+      {/* fig. 2 — one real capture, taped into the sketchbook */}
       <section className="showcase">
-        <div className="showcase__head">
-          <span className="eyebrow">Seeing it work</span>
+        <div className="wash wash--sky" aria-hidden="true" />
+        <div>
+          <span className="fig">fig. 2 — seeing it work</span>
           <h2>It highlights the page you&rsquo;re already&nbsp;on.</h2>
           <p>Not a stripped-down reader view beside the article — the article itself,
              with the spoken sentence lit as it goes.</p>
         </div>
 
-        <figure className="showcase__stage">
-          <div className="showcase__glow" aria-hidden="true" />
-          <div className="browser">
-            <div className="browser__bar">
-              <span className="browser__dots"><i/><i/><i/></span>
-              <span className="browser__url">darioamodei.com/essay/machines-of-loving-grace</span>
-            </div>
-            <div className="browser__view">
-              <img src="/shots/shot-dark.png"
-                   alt="Earshot reading an essay: the sentence currently being spoken is highlighted directly on the page" />
-            </div>
-          </div>
+        <figure className="print">
+          <div className="tape" aria-hidden="true" />
+          <img src="/shots/shot-dark.png"
+               alt="Chickadee reading an essay: the sentence currently being spoken is highlighted directly on the page" />
+          <figcaption>darioamodei.com/essay/machines-of-loving-grace</figcaption>
         </figure>
       </section>
 
       <section className="proof">
+        <img className="sketch" src="/birds/head-study.webp" alt="" aria-hidden="true" />
         <div>
           <h3>Local, not "private"</h3>
           <p>Not a promise in a policy — an architecture. The model executes in your browser
@@ -67,21 +62,25 @@ export default function Home() {
       </section>
 
       <section className="install">
-        <h2>Install it and press <em style={{fontStyle:'italic'}}>⌥R</em></h2>
-        <p>Chrome, Edge or Arc · requires WebGPU</p>
-        {/* TODO: swap for the Chrome Web Store URL once the listing is live */}
-        <a className="cta" href="#" aria-disabled="true">Add to Chrome — soon</a>
-        <p className="reqs">
-          Needs a WebGPU-capable browser and machine. Earshot checks on first run
-          and tells you plainly if yours can’t run it.
-        </p>
+        <div className="wash wash--ochre" aria-hidden="true" />
+        <div>
+          <h2>Install it and press <em>⌥R</em></h2>
+          <p className="req">Chrome, Edge or Arc · requires WebGPU</p>
+          {/* TODO: swap for the Chrome Web Store URL once the listing is live */}
+          <a className="btn cta" href="#" aria-disabled="true">Add to Chrome — soon</a>
+          <p className="reqs">
+            Needs a WebGPU-capable browser and machine. Chickadee checks on first run
+            and tells you plainly if yours can’t run it.
+          </p>
+        </div>
+        <img className="flyaway" src="/birds/8-flyaway.webp" alt="" aria-hidden="true" />
       </section>
 
       <footer>
-        <span>© {new Date().getFullYear()} Earshot</span>
+        <span>© {new Date().getFullYear()} Chickadee</span>
         <a href="/privacy">Privacy</a>
-        <a href="https://github.com/sahilmahendrakar/earshot">Source</a>
-        <span className="sp">Voice: Kokoro-82M · af_heart · generated locally</span>
+        <a href="https://github.com/sahilmahendrakar/chickadee">Source</a>
+        <span className="credit">Birdsong: public-domain recordings by G. McGrane and Karlunun</span>
       </footer>
     </div>
   );

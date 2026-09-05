@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 node build.mjs
 VER=$(python3 -c "import json;print(json.load(open('ext/manifest.json'))['version'])")
-OUT="earshot-${VER}.zip"
+OUT="chickadee-${VER}.zip"
 rm -f "$OUT"
 # icon256 is for the store listing, not the package; exclude dev leftovers too
 ( cd ext && zip -qr "../$OUT" . \

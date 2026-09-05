@@ -1,271 +1,294 @@
 /* ============================================================
-   Earshot — "editorial instrument"
-   Deep teal-black ground. High-contrast serif for the voice,
-   monospace for the machine. One luminous green that behaves
-   like a signal, never like decoration.
+   Chickadee — "naturalist's sketchbook"
+   A sheet of linen canvas. Light serif for the voice, typewriter
+   for the machine, a handwritten pencil for the margin notes.
+   Sketches and washes multiply into the paper, never sit on it.
    ============================================================ */
 :root{
-  --ink:#00161b;          /* deepest ground */
-  --ink-2:#012730;        /* raised ground */
-  --teal:#01566c;
-  --sig:#8fe6a6;          /* the signal */
-  --sig-2:#78dcdd;
-  --paper:#e8f4f2;        /* type on dark */
-  --dim:#5f8b93;
-  --rule:rgba(143,230,166,.16);
-  --measure:clamp(20rem, 62vw, 46rem);
+  --paper:#efe9dc;          /* the sheet */
+  --card:#fbf8f1;           /* a taped-in print */
+  --ink:#2a2724;
+  --body:#5a544b;
+  --note:#6b6250;           /* pencil notes */
+  --meta:#7a7368;
+  --dim:rgba(42,39,36,.38);
+  --hl:rgba(104,152,196,.45);/* the wash's blue, for ::selection */
+  --live:#c9a227;
+  --link:#8a6a3a;
+  --pad:clamp(20px,8vw,96px);
+  --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0;overflow-x:clip}
 html{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
 body{
-  background:
-    radial-gradient(120% 80% at 82% 8%, rgba(1,86,108,.55) 0%, transparent 58%),
-    radial-gradient(90% 70% at 4% 92%, rgba(143,230,166,.10) 0%, transparent 60%),
-    linear-gradient(178deg, var(--ink-2) 0%, var(--ink) 62%, #000d11 100%);
+  background:var(--paper) url(/textures/linen.webp) center / 1100px auto repeat;
   background-attachment:fixed;
-  color:var(--paper);
-  font-family:var(--font-mono), ui-monospace, monospace;
+  color:var(--ink);
+  font-family:var(--font-mono), 'Courier Prime', 'Courier New', monospace;
   min-height:100vh;
   overflow-x:clip;
 }
-/* film grain — keeps the flat gradients from looking synthetic */
-.grain{
-  position:fixed; inset:-6%; z-index:0; pointer-events:none; opacity:.11;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 7s steps(6) infinite;
-}
-@keyframes grain{
-  0%{transform:translate(0,0)} 20%{transform:translate(-3%,2%)} 40%{transform:translate(2%,-3%)}
-  60%{transform:translate(-2%,-2%)} 80%{transform:translate(3%,1%)} 100%{transform:translate(0,0)}
+a{color:inherit}
+::selection{background:var(--hl)}
+
+/* the sheet darkens toward its edges, like a scan */
+.vignette{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55;
+  background:radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(90,70,40,.18) 100%);
 }
 
-/* ---------- shell: asymmetric, grid-breaking ---------- */
-.shell{position:relative; z-index:1; max-width:1240px; margin:0 auto; padding:0 clamp(20px,5vw,64px)}
+/* ---------- the sheet ---------- */
+/* no z-index here: a stacking context would isolate the washes and sketches
+   from the linen they are meant to multiply into */
+.sheet{position:relative; max-width:1200px; margin:0 auto; padding:72px var(--pad) 0}
+
+/* ---------- watercolour washes ---------- */
+.wash{
+  position:absolute; pointer-events:none; z-index:-1;
+  mix-blend-mode:multiply; opacity:.7;
+  animation:bloom 1.6s var(--ease) both;
+}
+.wash--tan{
+  top:60px; right:-260px; width:620px; height:520px; filter:blur(18px); animation-delay:.2s;
+  background:
+    radial-gradient(38% 42% at 36% 44%, rgba(208,180,130,.6), transparent 70%),
+    radial-gradient(30% 34% at 66% 38%, rgba(196,160,110,.55), transparent 72%),
+    radial-gradient(26% 30% at 52% 70%, rgba(214,186,140,.5), transparent 70%),
+    radial-gradient(12% 14% at 78% 66%, rgba(190,150,100,.5), transparent 75%),
+    radial-gradient(8% 9% at 22% 72%, rgba(190,150,100,.45), transparent 78%);
+}
+.wash--sky{
+  top:-40px; left:calc(-300px - var(--pad)); width:560px; height:460px; filter:blur(20px); animation-delay:.6s;
+  background:
+    radial-gradient(40% 44% at 48% 50%, rgba(110,160,200,.42), transparent 70%),
+    radial-gradient(28% 30% at 74% 40%, rgba(120,170,205,.36), transparent 72%),
+    radial-gradient(24% 26% at 34% 74%, rgba(100,150,195,.36), transparent 70%),
+    radial-gradient(10% 11% at 82% 70%, rgba(100,150,195,.4), transparent 78%),
+    radial-gradient(7% 8% at 24% 30%, rgba(100,150,195,.38), transparent 80%);
+}
+.wash--ochre{
+  top:90px; right:calc(-200px - var(--pad)); width:420px; height:380px; filter:blur(18px); animation-delay:1s;
+  background:
+    radial-gradient(40% 44% at 50% 48%, rgba(225,190,80,.48), transparent 70%),
+    radial-gradient(28% 30% at 26% 62%, rgba(235,205,95,.42), transparent 72%),
+    radial-gradient(22% 26% at 72% 30%, rgba(215,180,70,.42), transparent 70%),
+    radial-gradient(9% 10% at 84% 62%, rgba(215,180,70,.45), transparent 78%),
+    radial-gradient(6% 7% at 18% 28%, rgba(215,180,70,.4), transparent 80%);
+}
+@keyframes bloom{from{opacity:0; transform:scale(.7)} to{opacity:.7; transform:none}}
 
 /* ---------- masthead ---------- */
-.mast{
-  display:flex; align-items:center; gap:14px;
-  padding:34px 0 0; opacity:0; animation:rise .9s .1s cubic-bezier(.2,.7,.2,1) forwards;
+.mast{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap}
+.mast .word{
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-style:italic; font-weight:400;
+  font-size:34px; letter-spacing:-.01em; color:var(--ink); text-decoration:none;
 }
-.mast img{width:36px;height:36px;border-radius:9px}
-.mast .word{font-family:var(--font-display); font-size:26px; letter-spacing:.4px}
-.mast .meta{margin-left:auto; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim)}
-.mast .meta b{color:var(--sig); font-weight:500}
+.mast .note{
+  font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note);
+  display:inline-block; transform:rotate(-2deg);
+}
+.mast .meta{margin-left:auto; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
 
 /* ---------- hero ---------- */
-/* hero + passage share a main column; the instrument rides alongside in a rail.
-   NOT named .reading — that class is the playback state that drives dimming. */
-.read-area{display:grid; grid-template-columns:minmax(0,1fr) auto;
-  gap:clamp(20px,4vw,60px); align-items:stretch}
-.read-area__main{min-width:0}
-/* full-height so the sticky instrument has somewhere to travel */
-.rail{position:relative; align-self:stretch}
-/* sticky, so it stays with you through the hero and the passage and then
-   releases at the cards rather than floating over the rest of the page */
-.instrument{position:sticky; top:clamp(24px,16vh,150px);
-  display:flex; flex-direction:column; align-items:center; gap:10px}
-.hero{padding:clamp(36px,6vh,68px) 0 clamp(20px,3vh,36px); position:relative}
+.hero{
+  padding-top:88px; display:grid; grid-template-columns:minmax(0,1fr) 480px;
+  gap:8px; align-items:start;
+}
 .hero__copy{min-width:0}
-@media (max-width:900px){
-  .read-area{grid-template-columns:minmax(0,1fr)}
-  .rail{order:-1}
-  .instrument{position:static; margin:0 auto 8px}
-}
-.kicker{
-  font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--sig);
-  display:flex; align-items:center; gap:10px; margin-bottom:26px;
-  opacity:0; animation:rise .9s .2s cubic-bezier(.2,.7,.2,1) forwards;
-}
-.kicker::before{content:''; width:34px; height:1px; background:var(--sig); opacity:.6}
 h1{
-  font-family:var(--font-display); font-weight:400; text-wrap:balance;
-  font-size:clamp(2.4rem, 6.0vw, 5.3rem); line-height:.98; letter-spacing:-.02em;
-  margin:0; max-width:15ch;
-  opacity:0; animation:rise 1s .3s cubic-bezier(.2,.7,.2,1) forwards;
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
+  font-size:84px; line-height:1; letter-spacing:-.025em; margin:0; white-space:nowrap;
 }
-h1 .sent{color:var(--paper); cursor:pointer; transition:color .4s ease}
-.reading h1 .sent{color:rgba(232,244,242,.40)}
-.reading h1 .sent.live{color:var(--paper); text-shadow:0 0 40px rgba(143,230,166,.3)}
-.reading h1 .sent.spoken{color:rgba(232,244,242,.34)}
-h1 .sent .rule{bottom:.02em; height:3px}
-/* the closing line carries the accent, the way the original <em> did — it
-   still lifts to full white while it is being spoken */
-h1 .sent:last-of-type{font-style:italic; color:var(--sig)}
-.reading h1 .sent:last-of-type{color:rgba(143,230,166,.42)}
-.reading h1 .sent:last-of-type.live{color:var(--paper)}
-.reading h1 .sent:last-of-type.spoken{color:rgba(143,230,166,.36)}
-.sub{
-  margin:28px 0 0; max-width:44ch; font-size:14.5px; line-height:1.7; color:rgba(232,244,242,.74);
-  opacity:0; animation:rise 1s .42s cubic-bezier(.2,.7,.2,1) forwards;
+.standfirst{margin:40px 0 0; max-width:50ch; font-size:16px; line-height:1.95; color:var(--ink)}
+.controls{display:flex; align-items:center; gap:22px; margin-top:44px; flex-wrap:wrap}
+.elapsed{font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note)}
+/* the birdsong switch: a pencil note you can tap */
+.birdsong{
+  appearance:none; background:none; border:0; padding:0; cursor:pointer;
+  font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note);
+  transition:color .2s; text-align:left;
 }
-.sub .sent{color:rgba(232,244,242,.74)}
-.reading .sub .sent{color:rgba(232,244,242,.34)}
-.reading .sub .sent.live{color:var(--paper)}
-.sub b{color:var(--paper); font-weight:500}
-.reading .sub .sent b{color:inherit}
-.reading .sub .sent.live b{color:var(--paper)}
-/* the third standfirst sentence wraps across several lines, where a single
-   full-width rule underneath reads as a stray divider rather than a sweep */
+.birdsong:hover{color:var(--link)}
+.birdsong--off{color:var(--meta); text-decoration:line-through; text-decoration-thickness:1px}
 
-/* ---------- the instrument: arcs that react to real amplitude ---------- */
-.field{
-  width:clamp(280px,34vw,470px); aspect-ratio:1;
-  pointer-events:none; opacity:0; animation:fade 1.6s .5s ease forwards;
+/* hand-drawn oval buttons */
+.btn{
+  appearance:none; cursor:pointer; display:inline-block; text-decoration:none;
+  background:transparent; border:1.5px solid var(--ink); color:var(--ink);
+  padding:16px 30px; font-family:inherit; font-size:14px; letter-spacing:.12em; text-transform:uppercase;
+  line-height:1.2; transition:background .2s, color .2s;
 }
-@media (max-width:900px){ .field{width:min(72vw,340px)} }
+.btn:hover{background:var(--ink); color:var(--paper)}
+.listen{border-radius:48% 52% 50% 50% / 55% 45% 55% 45%; transform:rotate(-1.2deg)}
+.cta{border-radius:52% 48% 50% 50% / 45% 55% 45% 55%; padding:15px 30px}
 
-/* ---------- the narrated passage — the whole point ---------- */
-.passage{
-  border-top:1px solid var(--rule); padding:clamp(28px,5vh,48px) 0 clamp(90px,16vh,190px);
-  position:relative;
+/* the bird: a flipbook of eight watercolour frames */
+.bird{margin:-220px -110px -80px -20px; position:relative; transform:rotate(-2deg)}
+.bird__box{aspect-ratio:4/5; position:relative}
+.bird__frame{
+  position:absolute; inset:0; pointer-events:none;
+  background-position:center; background-size:contain; background-repeat:no-repeat;
+  mix-blend-mode:multiply; opacity:0;           /* no transition: cuts, like a flipbook */
 }
-.passage .label{
-  font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
-  margin-bottom:clamp(22px,4vh,38px); display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+.bird__frame.on{opacity:1}
+.bird__frame--8{transform:translate(-28%,-32%) scale(.85)}
+.bird figcaption{
+  position:absolute; left:14%; bottom:12%; font-family:var(--font-hand), 'Homemade Apple', cursive;
+  font-size:15px; color:var(--note); transform:rotate(-4deg); white-space:nowrap;
 }
-.passage .label .dot{width:6px;height:6px;border-radius:50%;background:var(--sig);
-  box-shadow:0 0 0 0 rgba(143,230,166,.6)}
-.passage .label.live .dot{animation:pulse 1.7s ease-out infinite}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(143,230,166,.55)}
-  100%{box-shadow:0 0 0 13px rgba(143,230,166,0)}
-}
-.script{
-  font-family:var(--font-display); font-weight:400;
-  font-size:clamp(1.6rem, 3.5vw, 3.05rem); line-height:1.34; letter-spacing:-.01em;
-  max-width:var(--measure);
-}
-/* At rest the page reads as an ordinary page — full contrast, no dimming.
-   Dimming only starts once there is a spoken sentence to contrast against. */
-.sent{
-  display:inline; color:var(--paper);
-  transition:color .45s ease, text-shadow .45s ease;
-  position:relative; cursor:pointer;
-}
-.reading .sent{color:rgba(232,244,242,.42)}
-.reading .sent:hover{color:rgba(232,244,242,.72)}
-.reading .sent.spoken{color:rgba(232,244,242,.32)}
+
+/* ---------- sentence states (all three zones) ---------- */
+/* At rest the page reads as an ordinary page — full ink, nothing dimmed.
+   Dimming starts once there is a spoken sentence to contrast against. */
+.sent{cursor:pointer; color:var(--ink); transition:color .4s ease, background-color .4s ease}
+.reading .sent{color:var(--dim)}
+/* The live sentence sits under a blue watercolour wash: a raster with ragged,
+   granulated edges, cloned onto every line fragment. The padding and the
+   negative margin cancel, so the wash bleeds past the words without moving them. */
 .reading .sent.live{
-  color:var(--paper);
-  text-shadow:0 0 32px rgba(143,230,166,.28);
+  color:var(--ink);
+  background:url(/textures/wash-blue.png) center / 100% 100% no-repeat;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+  padding:.06em .22em; margin:0 -.22em;
+  mix-blend-mode:multiply;
 }
-/* the signal sweeps under the words at exactly the speaking rate */
-.sent .rule{
-  position:absolute; left:0; right:0; bottom:-.13em; height:2px;
-  background:linear-gradient(90deg, var(--sig-2), var(--sig));
-  transform-origin:left center; transform:scaleX(0);
-  opacity:0; border-radius:2px;
-}
-.sent.live .rule{opacity:.95; box-shadow:0 0 14px rgba(143,230,166,.55)}
 
-/* ---------- controls ---------- */
-.controls{display:flex; align-items:center; gap:16px; margin:0; flex-wrap:wrap; justify-content:center}
-.listen{
-  appearance:none; border:0; cursor:pointer; position:relative;
-  display:inline-flex; align-items:center; gap:13px;
-  padding:15px 27px 15px 22px; border-radius:999px;
-  background:linear-gradient(120deg, var(--sig-2), var(--sig));
-  color:#00252e; font-family:var(--font-mono); font-size:13px; font-weight:500;
-  letter-spacing:.06em; text-transform:uppercase;
-  box-shadow:0 10px 34px rgba(143,230,166,.22);
-  transition:transform .16s cubic-bezier(.2,.7,.2,1), box-shadow .22s, filter .2s;
+/* ---------- the narrated passage ---------- */
+.passage{margin-top:110px}
+.passage .label{
+  font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:16px; color:var(--note);
+  display:flex; align-items:center; gap:12px;
 }
-.listen:hover{transform:translateY(-2px); box-shadow:0 16px 44px rgba(143,230,166,.34); filter:brightness(1.05)}
-.listen:active{transform:translateY(0)}
-.listen svg{display:block}
-.elapsed{font-size:12px; color:var(--dim); letter-spacing:.1em; font-variant-numeric:tabular-nums}
+.passage .dot{
+  flex:none; width:8px; height:8px; border-radius:50%;
+  border:1.5px solid var(--note); background:transparent; transition:background .3s;
+}
+.passage .label.live .dot{background:var(--live)}
+.script{
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
+  font-size:40px; line-height:1.35; letter-spacing:-.01em; max-width:23em; margin:28px 0 0;
+}
 
-/* ---------- showcase: one large product capture ---------- */
-.showcase{padding:clamp(30px,6vh,72px) 0 clamp(46px,8vh,96px)}
-.showcase__head{max-width:52ch; margin-bottom:clamp(26px,4.5vh,50px)}
-.eyebrow{display:block; font-size:11px; letter-spacing:.24em; text-transform:uppercase;
-  color:var(--sig); margin-bottom:14px}
-.showcase__head h2{font-family:var(--font-display); font-weight:400; letter-spacing:-.015em;
-  font-size:clamp(1.9rem,4.4vw,3.3rem); line-height:1.06; margin:0 0 16px}
-.showcase__head p{margin:0; font-size:14px; line-height:1.75; color:var(--dim); max-width:46ch}
+/* ---------- fig. 2: the taped-in print ---------- */
+.fig{font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:16px; color:var(--note)}
+.showcase{
+  margin-top:130px; position:relative;
+  display:grid; grid-template-columns:300px minmax(0,1fr); gap:56px; align-items:start;
+}
+.showcase h2{
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
+  font-size:40px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 16px;
+}
+.showcase p{margin:0; font-size:14px; line-height:1.9; color:var(--body)}
+.print{
+  margin:0; position:relative; transform:rotate(-1deg);
+  background:var(--card); padding:12px 12px 40px;
+  box-shadow:0 14px 30px -18px rgba(40,30,10,.5);
+}
+.print .tape{
+  position:absolute; top:-12px; right:40px; width:110px; height:26px;
+  background:rgba(255,248,220,.6); box-shadow:0 1px 2px rgba(0,0,0,.12); transform:rotate(4deg);
+}
+.print img{width:100%; height:auto; display:block; filter:sepia(.12) contrast(.96)}
+.print figcaption{
+  position:absolute; bottom:10px; left:14px;
+  font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:14px; color:var(--meta);
+}
 
-/* break the text column so the capture can breathe */
-.showcase__stage{position:relative;
-  /* bleed out to the shell's edge — never further, or the page scrolls sideways */
-  margin-inline:calc(-1 * clamp(20px,5vw,64px));}
-/* light spilling from behind the window, so it sits in the page rather than on it */
-.showcase__glow{
-  position:absolute; inset:-14% 0 -22%; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(58% 46% at 50% 12%, rgba(120,220,221,.20), transparent 70%),
-    radial-gradient(70% 60% at 50% 55%, rgba(143,230,166,.13), transparent 72%);
-  filter:blur(14px);
-}
-.browser{
-  position:relative; z-index:1; border-radius:14px; overflow:hidden;
-  border:1px solid rgba(143,230,166,.16);
-  background:#0a1418;
-  box-shadow:
-    0 2px 0 rgba(255,255,255,.05) inset,
-    0 40px 90px -30px rgba(0,0,0,.85),
-    0 12px 34px -14px rgba(0,0,0,.6);
-}
-.browser__bar{
-  display:flex; align-items:center; gap:14px; padding:11px 16px;
-  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
-.browser__dots{display:flex; gap:7px}
-.browser__dots i{width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.16)}
-.browser__url{
-  flex:1; text-align:center; font-size:11.5px; color:rgba(232,244,242,.42);
-  background:rgba(0,0,0,.28); border-radius:999px; padding:5px 14px;
-  max-width:440px; margin:0 auto; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-}
-.browser__view{position:relative; line-height:0}
-.browser__view img{width:100%; height:auto; display:block}
-
-/* ---------- proof strip ---------- */
+/* ---------- proof points ---------- */
 .proof{
-  border-top:1px solid var(--rule); display:grid; gap:1px;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); background:var(--rule);
+  margin-top:130px; position:relative;
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:56px 72px;
 }
-.proof > div{background:linear-gradient(180deg, rgba(1,39,48,.72), rgba(0,22,27,.72));
-  padding:clamp(24px,4vh,38px) clamp(20px,3vw,30px)}
-.proof h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0 0 9px; color:var(--sig)}
-.proof p{margin:0; font-size:12.5px; line-height:1.75; color:var(--dim)}
+.proof h3{
+  font-family:var(--font-hand), 'Homemade Apple', cursive; font-weight:400;
+  font-size:20px; color:var(--note); margin:0 0 10px;
+}
+.proof p{margin:0; font-size:14px; line-height:1.9; color:var(--body)}
+.proof .sketch{
+  position:absolute; right:-190px; top:-190px; width:380px; height:380px; object-fit:contain;
+  mix-blend-mode:multiply; transform:rotate(-8deg); pointer-events:none;
+}
 
 /* ---------- install ---------- */
-.install{padding:clamp(56px,10vh,110px) 0; text-align:center}
-.install h2{font-family:var(--font-display); font-weight:400; font-size:clamp(2rem,5.5vw,4rem);
-  margin:0 0 14px; letter-spacing:-.015em}
-.install p{color:var(--dim); font-size:13px; margin:0 0 32px}
-.cta{
-  display:inline-block; padding:16px 34px; border-radius:999px; text-decoration:none;
-  border:1px solid var(--sig); color:var(--sig); font-size:13px; letter-spacing:.08em;
-  text-transform:uppercase; transition:background .22s, color .22s, transform .16s;
+.install{
+  margin-top:140px; position:relative;
+  display:grid; grid-template-columns:minmax(0,1fr) 380px; gap:24px; align-items:center;
 }
-.cta:hover{background:var(--sig); color:#00252e; transform:translateY(-2px)}
-.reqs{margin-top:20px; font-size:11.5px; color:var(--dim); opacity:.8}
+.install h2{
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
+  font-size:58px; line-height:1.02; letter-spacing:-.02em; margin:0 0 14px;
+}
+.install h2 em{font-style:italic}
+.install .req{margin:0 0 28px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--meta)}
+.install .reqs{margin:22px 0 0; font-size:12.5px; line-height:1.8; color:var(--meta); max-width:54ch}
+.install .flyaway{
+  width:100%; aspect-ratio:1; object-fit:contain; mix-blend-mode:multiply;
+  transform:rotate(6deg) scale(1.6); pointer-events:none;
+}
 
 /* ---------- footer ---------- */
-footer{border-top:1px solid var(--rule); padding:30px 0 46px; display:flex; gap:22px;
-  flex-wrap:wrap; align-items:center; font-size:11.5px; color:var(--dim)}
-footer a{color:var(--dim); text-decoration:none; border-bottom:1px solid transparent; transition:.2s}
-footer a:hover{color:var(--sig); border-bottom-color:var(--sig)}
-footer .sp{margin-left:auto}
+footer{
+  margin-top:110px; padding-bottom:48px; display:flex; gap:24px; align-items:center; flex-wrap:wrap;
+  font-size:12px; color:var(--meta);
+}
+footer a{color:inherit; text-decoration:none; transition:color .2s}
+footer .credit{margin-left:auto; text-align:right}
+footer a:hover{color:var(--link)}
 
 /* ---------- prose (privacy page) ---------- */
-.prose{max-width:64ch; padding:clamp(40px,8vh,90px) 0 90px}
-.prose h1{font-size:clamp(2.4rem,6vw,4rem); margin-bottom:8px; animation:none; opacity:1}
-.prose .date{font-size:11.5px; color:var(--dim); letter-spacing:.12em; text-transform:uppercase; margin-bottom:38px}
-.prose h2{font-family:var(--font-display); font-weight:400; font-size:26px; color:var(--sig);
-  margin:44px 0 12px; letter-spacing:-.01em}
-.prose p, .prose li{font-size:13.5px; line-height:1.85; color:#b9d2d2}
-.prose li{margin-bottom:9px}
-.prose strong{color:var(--paper); font-weight:500}
-.prose code{background:rgba(143,230,166,.1); padding:1px 6px; border-radius:4px; color:var(--sig); font-size:12.5px}
-.prose .lede{font-family:var(--font-display); font-size:23px; line-height:1.5; color:var(--paper)}
+.prose{max-width:62ch; padding:80px 0 0}
+.prose h1{
+  font-size:58px; line-height:1.02; letter-spacing:-.02em; white-space:normal; margin:0 0 14px;
+}
+.prose .date{font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note); margin-bottom:44px}
+.prose .lede{
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
+  font-size:28px; line-height:1.35; letter-spacing:-.01em; color:var(--ink); margin:0;
+}
+.prose h2{
+  font-family:var(--font-hand), 'Homemade Apple', cursive; font-weight:400;
+  font-size:20px; color:var(--note); margin:52px 0 12px;
+}
+.prose p, .prose li{font-size:14px; line-height:1.9; color:var(--body); margin:0 0 14px}
+.prose ul{padding-left:1.2em; margin:0}
+.prose li{margin-bottom:10px}
+.prose strong{
+  color:var(--ink); font-weight:400; mix-blend-mode:multiply;
+  background:url(/textures/wash-blue.png) center / 100% 100% no-repeat;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone; padding:.06em .22em; margin:0 -.22em;
+}
+.prose code{font-family:inherit; color:var(--ink); border-bottom:1px solid var(--dim)}
+.prose a{color:var(--link)}
 
-@keyframes rise{from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none}}
-@keyframes fade{to{opacity:1}}
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .hero{grid-template-columns:minmax(0,1fr); padding-top:40px}
+  /* the frames carry empty space above the bird, so pull the box up and let the
+     twig's bottom sit just clear of the headline */
+  .bird{order:-1; width:100%; max-width:420px; margin:-60px auto 0; transform:rotate(-2deg) scale(1.1)}
+  .bird figcaption{left:2%; bottom:auto; top:20%; font-size:14px}
+  h1{font-size:clamp(2.6rem, 9vw, 84px); white-space:normal}
+  .showcase, .proof, .install{grid-template-columns:minmax(0,1fr)}
+  .showcase{gap:36px} .proof{gap:40px}
+  /* the URL no longer fits the print's bottom margin — set it below the image */
+  .print{padding:10px 10px 14px}
+  .print figcaption{position:static; display:block; margin-top:10px; font-size:13px; line-height:1.4; overflow-wrap:anywhere}
+  /* the head study leaves the margin and becomes the first item, right-aligned */
+  .proof .sketch{position:static; display:block; width:230px; height:230px; margin:-60px -50px -80px auto}
+  .install .flyaway{max-width:300px; margin:24px auto 0; transform:rotate(6deg) scale(1.3)}
+  .script{font-size:clamp(1.6rem, 5.4vw, 40px)}
+  .showcase h2{font-size:clamp(1.8rem, 5.4vw, 40px)}
+  .install h2{font-size:clamp(2.2rem, 7.4vw, 58px)}
+  .prose h1{font-size:clamp(2.2rem, 7.4vw, 58px)}
+  .wash--tan{right:-360px}
+}
+@media (max-width:560px){
+  .mast .meta{margin-left:0; flex-basis:100%}
+  .sheet{padding-top:40px}
+}
 @media (prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
-  .grain{animation:none}
+  .wash{animation:none}
+  *{transition-duration:.01ms !important}
 }

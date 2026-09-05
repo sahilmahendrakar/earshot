@@ -1,20 +1,20 @@
 # Chrome Web Store listing — draft copy
 
 ## Name
-Earshot — Read Pages Aloud
+Chickadee — Read Pages Aloud
 
 ## Short description (max 132 chars)
 Reads any web page aloud in a natural voice. Runs entirely on your machine — no
 account, no API key, nothing uploaded.
 
 ## Source code
-https://github.com/sahilmahendrakar/earshot  (Apache-2.0)
+https://github.com/sahilmahendrakar/chickadee  (Apache-2.0)
 
 ## Category
 Accessibility  (alternative: Productivity)
 
 ## Single purpose (required field)
-Earshot converts the text of the web page the user is viewing into speech and
+Chickadee converts the text of the web page the user is viewing into speech and
 plays it back, highlighting each sentence as it is read.
 
 ## Permission justifications (required, one per permission)
@@ -46,14 +46,14 @@ Hugging Face; it is data consumed by the bundled runtime, not executable code.
 
 ## Full description
 
-Earshot reads web pages aloud in a natural, human-sounding voice — and it does
+Chickadee reads web pages aloud in a natural, human-sounding voice — and it does
 it entirely on your own computer.
 
 No account. No subscription. No API key. Nothing you read is ever uploaded.
 
 HOW IT WORKS
-Most read-aloud tools stream your page text to a server to generate speech. Kokoro
-Reader runs the Kokoro-82M speech model directly in your browser using WebGPU, so the
+Most read-aloud tools stream your page text to a server to generate speech. Chickadee
+runs the Kokoro-82M speech model directly in your browser using WebGPU, so the
 page you are reading never leaves your machine. After a one-time model download it
 works completely offline.
 
@@ -72,12 +72,12 @@ REQUIREMENTS
 • A one-time ~310 MB voice model download on first use. Cached afterwards.
 
 PRIVACY
-Earshot collects nothing and transmits nothing. There is no analytics, no
+Chickadee collects nothing and transmits nothing. There is no analytics, no
 telemetry, and no server. The only network request it ever makes is the one-time
 model download from Hugging Face.
 
 SOURCE
-Earshot is open source, Apache-2.0: https://github.com/sahilmahendrakar/earshot
+Chickadee is open source, Apache-2.0: https://github.com/sahilmahendrakar/chickadee
 
 OPEN SOURCE COMPONENTS
 Kokoro-82M (Apache-2.0), kokoro-js (Apache-2.0), Transformers.js (Apache-2.0),

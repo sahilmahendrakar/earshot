@@ -1,4 +1,4 @@
-# Earshot — Read Pages Aloud
+# Chickadee — Read Pages Aloud
 
 Reads any article aloud with Kokoro-82M running **entirely in the browser**.
 No server, no account, no API key, no local process.

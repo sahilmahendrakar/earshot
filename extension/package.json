@@ -1,5 +1,5 @@
 {
-  "name": "kokoro-local-extension",
+  "name": "chickadee-extension",
   "version": "0.1.0",
   "private": true,
   "description": "Read articles aloud with Kokoro-82M running entirely in the browser (WebGPU). No server, no API key.",

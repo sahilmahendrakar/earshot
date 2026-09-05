@@ -1,11 +1,11 @@
-# Privacy Policy — Earshot
+# Privacy Policy — Chickadee
 
-_Last updated: 1 September 2026_
+_Last updated: 4 September 2026_
 
-**Earshot does not collect, transmit, store, or share any personal data.**
+**Chickadee does not collect, transmit, store, or share any personal data.**
 
 ## What the extension does with your data
-Earshot reads the text of the web page you are currently viewing so it can
+Chickadee reads the text of the web page you are currently viewing so it can
 speak it aloud. That text is processed **entirely inside your own browser**. It is
 never sent to us, and never sent to any third party.
 
@@ -43,4 +43,4 @@ identifiers, no advertising.
 Any change to this policy will be published with a new version of the extension.
 
 ## Contact
-Open an issue at https://github.com/sahilmahendrakar/earshot/issues
+Open an issue at https://github.com/sahilmahendrakar/chickadee/issues
