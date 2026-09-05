@@ -270,8 +270,26 @@ export default function Narrator({ sentences, total }) {
   };
   const washRef = (i) => (WASHED.has(sentences[i].text) ? (el) => { washRefs.current[i] = el; } : undefined);
 
+  const birdsongLabel = birdsong === 'off' ? 'Birdsong off — let the birds in' : 'Birdsong on — quiet the birds';
+
   return (
     <>
+      <header className="mast">
+        <span className="word">Chickadee</span>
+        <span className="note">runs entirely on your machine</span>
+        <button type="button" className={`birdsong birdsong--${birdsong}`} onClick={toggleBirdsong}
+                aria-pressed={birdsong !== 'off'} aria-label={birdsongLabel} title={birdsongLabel}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+               strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M9.5 18V5.8l9-2.2v11.2" />
+            <ellipse cx="7" cy="18.2" rx="2.6" ry="1.9" />
+            <ellipse cx="16" cy="15" rx="2.6" ry="1.9" />
+            {birdsong === 'off' ? <path className="birdsong__strike" d="M4.5 4.5l15 15" /> : null}
+          </svg>
+        </button>
+        <span className="meta">Local · Open source · Free forever</span>
+      </header>
+
       <section className={`hero${reading ? ' reading' : ''}`}>
         <div className="hero__copy">
           <h1>
@@ -297,11 +315,6 @@ export default function Narrator({ sentences, total }) {
             <span className="elapsed">
               {mmss(elapsed)} / {mmss(total)} — {playing ? 'speaking' : 'the page reads itself'}
             </span>
-            <button type="button" className={`birdsong birdsong--${birdsong}`} onClick={toggleBirdsong}
-                    aria-pressed={birdsong === 'on'}
-                    title={birdsong === 'on' ? 'Quiet the birds' : 'Let the birds in'}>
-              {birdsong === 'off' ? '♪ birdsong off' : '♪ birdsong on'}
-            </button>
           </div>
         </div>
 

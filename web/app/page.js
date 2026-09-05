@@ -11,12 +11,7 @@ export default function Home() {
     <div className="sheet">
       <div className="wash wash--tan" aria-hidden="true" />
 
-      <header className="mast">
-        <span className="word">Chickadee</span>
-        <span className="note">runs entirely on your machine</span>
-        <span className="meta">Local · Open source · Free forever</span>
-      </header>
-
+      {/* the masthead lives inside Narrator so the birdsong switch can sit in it */}
       <Narrator sentences={n.sentences} total={n.total} />
 
       {/* fig. 2 — one real capture, taped into the sketchbook */}

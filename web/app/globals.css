@@ -87,7 +87,18 @@ a{color:inherit}
   font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note);
   display:inline-block; transform:rotate(-2deg);
 }
-.mast .meta{margin-left:auto; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
+.mast .meta{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
+/* the birdsong switch: a pencilled note in the margin, ink when the birds are singing */
+.birdsong{
+  appearance:none; background:none; border:0; padding:4px; margin-left:auto; cursor:pointer;
+  color:var(--ink); display:inline-flex; align-self:center; transform:rotate(-8deg);
+  transition:color .2s, transform .2s;
+}
+.birdsong svg{display:block}
+.birdsong:hover{color:var(--link); transform:rotate(-8deg) scale(1.08)}
+.birdsong--waiting{color:var(--note)}
+.birdsong--off{color:var(--meta)}
+.birdsong__strike{stroke-width:1.4}
 
 /* ---------- hero ---------- */
 .hero{
@@ -102,15 +113,7 @@ h1{
 .standfirst{margin:40px 0 0; max-width:50ch; font-size:17px; line-height:1.9; color:var(--ink)}
 .controls{display:flex; align-items:center; gap:22px; margin-top:44px; flex-wrap:wrap}
 .elapsed{font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note)}
-/* the birdsong switch: a pencil note you can tap */
-.birdsong{
-  appearance:none; background:none; border:0; padding:0; cursor:pointer;
-  font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note);
-  transition:color .2s; text-align:left;
-}
-.birdsong:hover{color:var(--link)}
-.birdsong--off{color:var(--meta); text-decoration:line-through; text-decoration-thickness:1px}
-.birdsong--waiting{color:var(--meta)}
+
 
 /* hand-drawn oval buttons */
 .btn{
@@ -290,7 +293,8 @@ footer a:hover{color:var(--link)}
   .wash--tan{right:-360px}
 }
 @media (max-width:560px){
-  .mast .meta{margin-left:0; flex-basis:100%}
+  .mast .meta{flex-basis:100%}
+  .birdsong{margin-left:auto}
   .sheet{padding-top:40px}
 }
 @media (prefers-reduced-motion:reduce){
