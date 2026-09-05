@@ -23,6 +23,9 @@ html,body{margin:0;padding:0;overflow-x:clip}
 html{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
 body{
   background:var(--paper) url(/textures/linen.webp) center top / 1100px auto repeat;
+  /* the handwritten face swaps in after first paint; never let that swap
+     move the scroll position */
+  overflow-anchor:none;
   color:var(--ink);
   font-family:var(--font-mono), 'Courier Prime', 'Courier New', monospace;
   min-height:100vh;
@@ -78,7 +81,7 @@ a{color:inherit}
 @keyframes bloom{from{opacity:0; transform:scale(.7)} to{opacity:.7; transform:none}}
 
 /* ---------- masthead ---------- */
-.mast{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; position:relative; z-index:3}
+.mast{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; position:relative; z-index:3; min-height:44px}
 .mast__logo{width:48px; height:48px; align-self:center; margin:-8px -6px -8px -8px;
   mix-blend-mode:multiply; transform:rotate(-6deg)}
 .mast__right{margin-left:auto; display:inline-flex; align-items:center; gap:18px}
@@ -88,7 +91,7 @@ a{color:inherit}
 }
 .mast .note{
   font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note);
-  display:inline-block; transform:rotate(-2deg);
+  display:inline-block; transform:rotate(-2deg); line-height:1.2;   /* Homemade Apple's tall metrics must not resize the masthead */
 }
 .mast .meta{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
 /* the birdsong switch: a pencilled note in the margin, ink when the birds are singing */
