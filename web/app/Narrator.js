@@ -8,7 +8,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
  * Two things live here:
  *   1. the narration clock — which sentence is lit, driven off <audio>.currentTime
  *   2. the bird — a flipbook of eight watercolour frames that flies in on load,
- *      fidgets while idle, sings while the page narrates, and leaves when it ends
+ *      fidgets while idle, and sings while the page narrates
  */
 
 // frame number -> file. Frames 2–7 share the same twig position and scale.
@@ -271,9 +271,8 @@ export default function Narrator({ sentences, total }) {
     stopSinging();
     bedTarget.current = BED_LEVEL; settleBed(3.5);
     after(900, () => { for (const el of Object.values(washRefs.current)) el && el.style.setProperty('--p', '0%'); });
-    if (reduced.current) { setBird(PERCHED); return; }
-    setBird(FLYAWAY);
-    after(2600, flyIn);
+    // the bird stays on its twig when the narration ends; only the first visit flies in
+    setBird(PERCHED);
   };
 
   // Idle pages read as normal pages. Dimming only makes sense once there is a
