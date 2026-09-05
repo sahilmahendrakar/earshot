@@ -77,18 +77,20 @@ async function init(payload) {
     // downloading ~310MB so an unsupported machine fails in a second, not a minute.
     const why = await webgpuProblem();
     if (why) { emit({ type: 'KL_UNSUPPORTED', reason: why }); return; }
-    // transformers.js reports 'progress' while reading the model from the cache too,
-    // so only surface it once a real network download ('download') has begun.
-    let downloading = false;
+    // transformers.js reports 'download' and 'progress' even when it is reading the
+    // model from its cache, so ask the cache directly and only show progress on a
+    // genuine first-run download.
+    let cached = false;
+    try {
+      const c = await caches.open('transformers-cache');
+      cached = (await c.keys()).some(r => r.url.includes(MODEL) && /onnx\/model[^/]*\.onnx$/.test(r.url));
+    } catch (e) { /* no Cache API: treat as a first run */ }
+    if (!cached) emit({ type: 'KL_STATUS', text: 'First run: downloading voice (~310 MB, one time)…', busy: true });
     try {
       tts = await KokoroTTS.from_pretrained(MODEL, {
         dtype: DTYPE, device: DEVICE,
         progress_callback: (p) => {
-          if (p.status === 'download') {
-            downloading = true;
-            emit({ type: 'KL_STATUS', text: 'Downloading voice (~310 MB, one time)…', busy: true });
-          }
-          if (downloading && p.status === 'progress' && p.progress != null)
+          if (!cached && p.status === 'progress' && p.progress != null)
             emit({ type: 'KL_STATUS', text: `Downloading model ${Math.round(p.progress)}%`, busy: true });
         }
       });
