@@ -78,7 +78,10 @@ a{color:inherit}
 @keyframes bloom{from{opacity:0; transform:scale(.7)} to{opacity:.7; transform:none}}
 
 /* ---------- masthead ---------- */
-.mast{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap}
+.mast{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; position:relative; z-index:3}
+.mast__logo{width:36px; height:36px; border-radius:9px; align-self:center; margin-right:-4px;
+  box-shadow:0 6px 14px -8px rgba(40,30,10,.6)}
+.mast__right{margin-left:auto; display:inline-flex; align-items:center; gap:18px}
 .mast .word{
   font-family:var(--font-display), 'Spectral', Georgia, serif; font-style:italic; font-weight:400;
   font-size:34px; letter-spacing:-.01em; color:var(--ink); text-decoration:none;
@@ -90,11 +93,11 @@ a{color:inherit}
 .mast .meta{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
 /* the birdsong switch: a pencilled note in the margin, ink when the birds are singing */
 .birdsong{
-  appearance:none; background:none; border:0; padding:0 4px; margin-left:auto; cursor:pointer;
-  color:var(--note); display:inline-block; position:relative; top:3px; line-height:0;
+  appearance:none; background:none; border:0; padding:6px; margin:-6px 0; cursor:pointer;
+  color:var(--ink); display:inline-flex; align-items:center; line-height:0; pointer-events:auto;
   transition:color .2s, transform .2s;
 }
-.birdsong svg{display:inline-block; vertical-align:baseline; transform:rotate(-8deg)}
+.birdsong svg{display:block; transform:rotate(-8deg)}
 .birdsong:hover{color:var(--link); transform:scale(1.1)}
 .birdsong--waiting{color:var(--meta)}
 .birdsong--off{color:var(--meta); opacity:.75}
@@ -108,7 +111,7 @@ a{color:inherit}
 .hero__copy{min-width:0}
 h1{
   font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
-  font-size:84px; line-height:1; letter-spacing:-.025em; margin:0; white-space:nowrap;
+  font-size:84px; line-height:1.12; letter-spacing:-.025em; margin:0; white-space:nowrap;
 }
 .standfirst{margin:40px 0 0; max-width:50ch; font-size:17px; line-height:1.9; color:var(--ink)}
 .controls{display:flex; align-items:center; gap:22px; margin-top:44px; flex-wrap:wrap}
@@ -293,8 +296,8 @@ footer a:hover{color:var(--link)}
   .wash--tan{right:-360px}
 }
 @media (max-width:560px){
-  .mast .meta{flex-basis:100%}
-  .birdsong{margin-left:auto}
+  .mast__right{flex-basis:100%; margin-left:0}
+  .mast__logo{width:30px; height:30px}
   .sheet{padding-top:40px}
 }
 @media (prefers-reduced-motion:reduce){

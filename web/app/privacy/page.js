@@ -6,6 +6,7 @@ export default function Privacy() {
       <div className="wash wash--tan" aria-hidden="true" />
 
       <header className="mast">
+        <img className="mast__logo" src="/icon.png" alt="" width="36" height="36" />
         <a href="/" className="word">Chickadee</a>
         <span className="note">runs entirely on your machine</span>
       </header>

@@ -35,13 +35,12 @@ export default function Narrator({ sentences, total }) {
   const lastTick = useRef(0);
   const washRefs = useRef({});    // sentence index -> element, for the spreading wash
   const sentRefs = useRef({});    // sentence index -> element, for following the voice
-  const passageRef = useRef(null);
+  const sectionRefs = useRef({}); // section name -> element, for arriving at each section
 
-  const hero = sentences.filter((s) => s.zone === 'hero');
-  const sub  = sentences.filter((s) => s.zone === 'sub');
-  const body = sentences.filter((s) => s.zone === 'body');
-  const heroCount = hero.length;
-  const subCount = sub.length;
+  // every sentence carries a zone (one per element on the page); zones roll up
+  // into the sections the page scrolls between
+  const zone = (z) => sentences.map((s, i) => [s, i]).filter(([s]) => s.zone === z);
+  const sectionOf = (z) => (z === 'hero' || z === 'sub') ? 'hero' : z === 'body' ? 'passage' : z.split('-')[0];
 
   const [playing, setPlaying] = useState(false);
   const [idx, setIdx] = useState(-1);
@@ -208,13 +207,14 @@ export default function Narrator({ sentences, total }) {
   // passage scrolls to its label instead, so the section arrives as a whole.
   const follow = useCallback((i) => {
     if (i < 0) return;
-    const first = sentences.findIndex((s) => s.zone === 'body');
-    const el = i === first ? passageRef.current : sentRefs.current[i];
+    const sec = sectionOf(sentences[i].zone);
+    const entering = sec !== 'hero' && (i === 0 || sectionOf(sentences[i - 1].zone) !== sec);
+    const el = entering ? sectionRefs.current[sec] : sentRefs.current[i];
     if (!el) return;
     const r = el.getBoundingClientRect();
     const inBand = r.top >= 72 && r.bottom <= innerHeight - 120;
-    if (inBand && i !== first) return;
-    const top = scrollY + r.top - innerHeight * (i === first ? 0.14 : 0.3);
+    if (inBand && !entering) return;
+    const top = scrollY + r.top - innerHeight * (entering ? 0.12 : 0.3);
     scrollTo({ top: Math.max(0, top), behavior: reduced.current ? 'auto' : 'smooth' });
   }, [sentences]);
 
@@ -289,14 +289,32 @@ export default function Narrator({ sentences, total }) {
     sentRefs.current[i] = el;
     if (WASHED.has(sentences[i].text)) washRefs.current[i] = el;
   };
+  const secRef = (name) => (el) => { sectionRefs.current[name] = el; };
+  // "⌥ R" is set in italic inside the install heading
+  const inline = (text) => {
+    const k = text.indexOf('⌥ R');
+    if (k < 0) return text;
+    return (<>{text.slice(0, k)}<em>⌥ R</em>{text.slice(k + 3)}</>);
+  };
+  // the sentences of one zone, each clickable and lit by the clock
+  const spans = (z, sep = ' ') => zone(z).map(([s, i], k, arr) => (
+    <span key={i}>
+      <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)} title="Read from here">{inline(s.text)}</span>
+      {k < arr.length - 1 ? sep : null}
+    </span>
+  ));
+  const rd = reading ? ' reading' : '';
 
   const birdsongLabel = birdsong === 'off' ? 'Birdsong off — let the birds in' : 'Birdsong on — quiet the birds';
 
   return (
     <>
       <header className="mast">
+        <img className="mast__logo" src="/icon.png" alt="" width="36" height="36" />
         <span className="word">Chickadee</span>
         <span className="note">runs entirely on your machine</span>
+        <span className="mast__right">
+        <span className="meta">Local · Open source · Free forever</span>
         <button type="button" className={`birdsong birdsong--${birdsong}`} onClick={toggleBirdsong}
                 aria-pressed={birdsong !== 'off'} aria-label={birdsongLabel} title={birdsongLabel}>
           <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor"
@@ -307,29 +325,20 @@ export default function Narrator({ sentences, total }) {
             {birdsong === 'off' ? <path className="birdsong__strike" d="M4.5 4.5l15 15" /> : null}
           </svg>
         </button>
-        <span className="meta">Local · Open source · Free forever</span>
+        </span>
       </header>
 
-      <section className={`hero${reading ? ' reading' : ''}`}>
+      <section className={`hero${rd}`} ref={secRef('hero')}>
         <div className="hero__copy">
           <h1>
-            {hero.map((s, i) => (
+            {zone('hero').map(([s, i], k, arr) => (
               <span key={i}>
                 <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)}>{s.text}</span>
-                {i < hero.length - 1 ? <br /> : null}
+                {k < arr.length - 1 ? <br /> : null}
               </span>
             ))}
           </h1>
-          <p className="standfirst">
-            {sub.map((s, k) => {
-              const i = k + heroCount;
-              return (
-                <span key={i}>
-                  <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)} title="Read from here">{s.text}</span>{' '}
-                </span>
-              );
-            })}
-          </p>
+          <p className="standfirst">{spans('sub')}</p>
           <div className="controls">
             <button className="btn listen" onClick={toggle}>{playing ? 'Pause' : 'Listen'}</button>
             <span className="elapsed">
@@ -351,24 +360,51 @@ export default function Narrator({ sentences, total }) {
         </figure>
       </section>
 
-      <section className={`passage${reading ? ' reading' : ''}`}>
-        <div className={`label${playing ? ' live' : ''}`} ref={passageRef}>
+      <section className={`passage${rd}`} ref={secRef('passage')}>
+        <div className={`label${playing ? ' live' : ''}`}>
           <span className="dot" />
           {playing ? 'now speaking — Kokoro-82M, voice af_heart' : 'press listen. the page will read itself.'}
         </div>
-
-        <p className="script">
-          {body.map((s, k) => {
-            const i = k + heroCount + subCount;
-            return (
-              <span key={i}>
-                <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)} title="Read from here">{s.text}</span>{' '}
-              </span>
-            );
-          })}
-        </p>
-
+        <p className="script">{spans('body')}</p>
         <audio ref={audioRef} src="/audio/narration.mp3" preload="auto" onEnded={ended} />
+      </section>
+
+      {/* fig. 2 — one real capture, taped into the sketchbook */}
+      <section className={`showcase${rd}`} ref={secRef('showcase')}>
+        <div className="wash wash--sky" aria-hidden="true" />
+        <div>
+          <span className="fig">fig. 2 — seeing it work</span>
+          <h2>{spans('showcase-h')}</h2>
+          <p>{spans('showcase-p')}</p>
+        </div>
+        <figure className="print">
+          <div className="tape" aria-hidden="true" />
+          <img src="/shots/shot-dark.png"
+               alt="Chickadee reading an essay: the sentence currently being spoken is highlighted directly on the page" />
+          <figcaption>darioamodei.com/essay/machines-of-loving-grace</figcaption>
+        </figure>
+      </section>
+
+      <section className={`proof${rd}`} ref={secRef('proof')}>
+        <img className="sketch" src="/birds/head-study.webp" alt="" aria-hidden="true" />
+        {[1, 2, 3, 4].map((n) => (
+          <div key={n}>
+            <h3>{spans(`proof-${n}h`)}</h3>
+            <p>{spans(`proof-${n}p`)}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className={`install${rd}`} ref={secRef('install')}>
+        <div className="wash wash--ochre" aria-hidden="true" />
+        <div>
+          <h2>{spans('install-h')}</h2>
+          <p className="req">{spans('install-req')}</p>
+          {/* TODO: swap for the Chrome Web Store URL once the listing is live */}
+          <a className="btn cta" href="#" aria-disabled="true">Add to Chrome — soon</a>
+          <p className="reqs">{spans('install-reqs')}</p>
+        </div>
+        <img className="flyaway" src="/birds/8-flyaway.webp" alt="" aria-hidden="true" />
       </section>
     </>
   );
