@@ -46,42 +46,15 @@ Hugging Face; it is data consumed by the bundled runtime, not executable code.
 
 ## Full description
 
-Chickadee reads web pages aloud in a natural, human-sounding voice — and it does
-it entirely on your own computer.
+Chickadee reads any web page aloud in a natural, human-sounding voice, and it does it entirely on your own computer. Nothing you read is ever uploaded, and there is no account, no subscription and no API key.
 
-No account. No subscription. No API key. Nothing you read is ever uploaded.
+Open an article and press Alt+R, or click the Chickadee button, and it starts reading from the top, highlighting each sentence on the page itself as it goes. Right-click any word and choose "Read aloud from here" to start partway through. A small floating bar lets you pause, step back and forth between sentences, and change the speed from 0.9x to 2x. Alt+P plays and pauses.
 
-HOW IT WORKS
-Most read-aloud tools stream your page text to a server to generate speech. Chickadee
-runs the Kokoro-82M speech model directly in your browser using WebGPU, so the
-page you are reading never leaves your machine. After a one-time model download it
-works completely offline.
+Most read-aloud tools send your page text to a server to generate the speech. Chickadee runs the Kokoro speech model directly in your browser using WebGPU, so the words never leave your machine. There are twelve voices to choose from, American and British, and the one you pick is remembered.
 
-FEATURES
-• Highlights each sentence on the real page as it is read
-• Right-click any word and choose "Read aloud from here" to start mid-article
-• 12 voices, including several rated A and B for quality
-• Adjustable speed from 0.9x to 2x
-• Keyboard shortcuts: Alt+R to read, Alt+P to play/pause
-• Compact floating controls that stay out of the way
+The first time you use it, Chickadee downloads the voice model once (about 310 MB). After that it works offline: on a plane, in a tunnel, anywhere. It needs a Chrome-based browser with WebGPU support on reasonably recent hardware, and it checks on first run and tells you plainly if your machine can't run it.
 
-REQUIREMENTS
-• A browser and machine with WebGPU support (Chrome-based browsers, version 113 or newer, on reasonably
-  recent hardware). The extension checks this on first run and tells you clearly if
-  your system cannot run it.
-• A one-time ~310 MB voice model download on first use. Cached afterwards.
-
-PRIVACY
-Chickadee collects nothing and transmits nothing. There is no analytics, no
-telemetry, and no server. The only network request it ever makes is the one-time
-model download from Hugging Face.
-
-SOURCE
-Chickadee is open source, Apache-2.0: https://github.com/sahilmahendrakar/chickadee
-
-OPEN SOURCE COMPONENTS
-Kokoro-82M (Apache-2.0), kokoro-js (Apache-2.0), Transformers.js (Apache-2.0),
-ONNX Runtime Web (MIT).
+Chickadee collects nothing and sends nothing. No analytics, no telemetry, no server. It is open source under the Apache 2.0 licence: https://github.com/sahilmahendrakar/chickadee
 
 ## Screenshots needed (1280x800 or 640x400, up to 5)
 1. An article mid-read with a sentence highlighted and the floating bar visible
