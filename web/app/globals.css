@@ -79,8 +79,8 @@ a{color:inherit}
 
 /* ---------- masthead ---------- */
 .mast{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; position:relative; z-index:3}
-.mast__logo{width:36px; height:36px; border-radius:9px; align-self:center; margin-right:-4px;
-  box-shadow:0 6px 14px -8px rgba(40,30,10,.6)}
+.mast__logo{width:48px; height:48px; align-self:center; margin:-8px -6px -8px -8px;
+  mix-blend-mode:multiply; transform:rotate(-6deg)}
 .mast__right{margin-left:auto; display:inline-flex; align-items:center; gap:18px}
 .mast .word{
   font-family:var(--font-display), 'Spectral', Georgia, serif; font-style:italic; font-weight:400;
@@ -110,7 +110,7 @@ a{color:inherit}
 }
 .hero__copy{min-width:0}
 h1{
-  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
+  font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:200;
   font-size:84px; line-height:1.12; letter-spacing:-.025em; margin:0; white-space:nowrap;
 }
 .standfirst{margin:40px 0 0; max-width:50ch; font-size:17px; line-height:1.9; color:var(--ink)}
@@ -297,7 +297,7 @@ footer a:hover{color:var(--link)}
 }
 @media (max-width:560px){
   .mast__right{flex-basis:100%; margin-left:0}
-  .mast__logo{width:30px; height:30px}
+  .mast__logo{width:40px; height:40px}
   .sheet{padding-top:40px}
 }
 @media (prefers-reduced-motion:reduce){

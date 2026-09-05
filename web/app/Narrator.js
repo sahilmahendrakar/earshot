@@ -310,7 +310,7 @@ export default function Narrator({ sentences, total }) {
   return (
     <>
       <header className="mast">
-        <img className="mast__logo" src="/icon.png" alt="" width="36" height="36" />
+        <img className="mast__logo" src="/birds/head-right.webp" alt="" width="48" height="48" />
         <span className="word">Chickadee</span>
         <span className="note">runs entirely on your machine</span>
         <span className="mast__right">
