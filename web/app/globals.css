@@ -221,19 +221,6 @@ h1 .sent:last-of-type{font-style:italic; color:var(--sig)}
 .browser__view{position:relative; line-height:0}
 .browser__view img{width:100%; height:auto; display:block}
 
-/* Points at the highlighted sentence. Percentages, not pixels: the image scales
-   proportionally, so these track the same point in the capture at every width.
-   They are tuned to shot-dark.png — retune if that screenshot is ever replaced. */
-.callout{position:absolute; left:74.5%; top:50.5%; display:flex; align-items:center; gap:9px;
-  transform:translateY(-50%); pointer-events:none}
-.callout__line{width:clamp(18px,3.4vw,46px); height:1px; background:var(--sig); opacity:.7;
-  box-shadow:0 0 10px rgba(143,230,166,.55)}
-.callout__text{font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--sig);
-  white-space:nowrap; text-shadow:0 2px 10px rgba(0,0,0,.8)}
-/* the label needs ~250px to the right of the highlight; below this it runs off
-   the frame, so drop it rather than let it collide with the edge */
-@media (max-width:1000px){ .callout{display:none} }
-
 /* ---------- proof strip ---------- */
 .proof{
   border-top:1px solid var(--rule); display:grid; gap:1px;

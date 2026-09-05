@@ -38,10 +38,6 @@ export default function Home() {
             <div className="browser__view">
               <img src="/shots/shot-dark.png"
                    alt="Earshot reading an essay: the sentence currently being spoken is highlighted directly on the page" />
-              <span className="callout" aria-hidden="true">
-                <span className="callout__line" />
-                <span className="callout__text">the sentence being spoken</span>
-              </span>
             </div>
           </div>
         </figure>
