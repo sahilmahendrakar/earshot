@@ -77,12 +77,18 @@ async function init(payload) {
     // downloading ~310MB so an unsupported machine fails in a second, not a minute.
     const why = await webgpuProblem();
     if (why) { emit({ type: 'KL_UNSUPPORTED', reason: why }); return; }
-    emit({ type: 'KL_STATUS', text: 'First run: downloading voice (~310 MB, one time)…', busy: true });
+    // transformers.js reports 'progress' while reading the model from the cache too,
+    // so only surface it once a real network download ('download') has begun.
+    let downloading = false;
     try {
       tts = await KokoroTTS.from_pretrained(MODEL, {
         dtype: DTYPE, device: DEVICE,
         progress_callback: (p) => {
-          if (p.status === 'progress' && p.progress != null)
+          if (p.status === 'download') {
+            downloading = true;
+            emit({ type: 'KL_STATUS', text: 'Downloading voice (~310 MB, one time)…', busy: true });
+          }
+          if (downloading && p.status === 'progress' && p.progress != null)
             emit({ type: 'KL_STATUS', text: `Downloading model ${Math.round(p.progress)}%`, busy: true });
         }
       });
