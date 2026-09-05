@@ -19,6 +19,10 @@ const FRAMES = [
 const FLIGHT = 1, LANDING = 2, PERCHED = 3, TILT = 4,
       SING_OPEN = 5, SING_CLOSED = 6, PREEN = 7, FLYAWAY = 8;
 
+// Two phrases get a watercolour wash that spreads under them as they are spoken.
+// Everything else just lifts back to full ink while the rest of the page dims.
+const WASHED = new Set(['locally.', "Chickadee doesn't."]);
+
 // The birdsong bed: a loop of public-domain chickadee recordings, played through
 // Web Audio so it can be faded rather than switched. It sits under everything
 // and ducks while the narration speaks.
@@ -29,6 +33,7 @@ export default function Narrator({ sentences, total }) {
   const rafRef = useRef(0);
   const idxRef = useRef(-1);      // read inside rAF without re-arming the loop
   const lastTick = useRef(0);
+  const washRefs = useRef({});    // sentence index -> element, for the spreading wash
 
   const hero = sentences.filter((s) => s.zone === 'hero');
   const sub  = sentences.filter((s) => s.zone === 'sub');
@@ -47,6 +52,7 @@ export default function Narrator({ sentences, total }) {
   const bedSrc = useRef(null);
   const bedTarget = useRef(BED_LEVEL);
   const wantBed = useRef(true);     // the user's preference
+  // 'waiting' is on, but blocked by the browser until the visitor's first click or key
   const [birdsong, setBirdsong] = useState('waiting');   // 'waiting' | 'on' | 'off'
 
   const fadeBed = useCallback((level, seconds) => {
@@ -204,6 +210,14 @@ export default function Narrator({ sentences, total }) {
         if (t - lastTick.current > 0.25) { lastTick.current = t; setElapsed(t); }
         const i = sentences.findIndex((s) => t >= s.start && t < s.end);
         if (i !== idxRef.current) { idxRef.current = i; setIdx(i); }
+        // the wash spreads at the speaking rate, straight off the clock via refs,
+        // so it never waits on a React render
+        for (const [k, el] of Object.entries(washRefs.current)) {
+          if (!el) continue;
+          const s = sentences[k];
+          const p = t < s.start ? 0 : t >= s.end ? 1 : (t - s.start) / (s.end - s.start);
+          el.style.setProperty('--p', `${(p * 118).toFixed(1)}%`);
+        }
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -239,6 +253,7 @@ export default function Narrator({ sentences, total }) {
     setIdx(-1); idxRef.current = -1; setElapsed(0); lastTick.current = 0;
     stopSinging();
     bedTarget.current = BED_LEVEL; settleBed(3.5);
+    after(900, () => { for (const el of Object.values(washRefs.current)) el && el.style.setProperty('--p', '0%'); });
     if (reduced.current) { setBird(PERCHED); return; }
     setBird(FLYAWAY);
     after(2600, flyIn);
@@ -249,7 +264,11 @@ export default function Narrator({ sentences, total }) {
   const reading = playing || idx >= 0;
 
   const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
-  const sentClass = (i) => `sent${idx === i ? ' live' : ''}`;
+  const sentClass = (i) => {
+    const washed = WASHED.has(sentences[i].text);
+    return `sent${washed ? ' washed' : ''}${idx === i ? ' live' : ''}${washed && idx > i ? ' spoken' : ''}`;
+  };
+  const washRef = (i) => (WASHED.has(sentences[i].text) ? (el) => { washRefs.current[i] = el; } : undefined);
 
   return (
     <>
@@ -258,7 +277,7 @@ export default function Narrator({ sentences, total }) {
           <h1>
             {hero.map((s, i) => (
               <span key={i}>
-                <span className={sentClass(i)} onClick={() => seek(i)}>{s.text}</span>
+                <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)}>{s.text}</span>
                 {i < hero.length - 1 ? <br /> : null}
               </span>
             ))}
@@ -267,8 +286,8 @@ export default function Narrator({ sentences, total }) {
             {sub.map((s, k) => {
               const i = k + heroCount;
               return (
-                <span key={i} className={sentClass(i)} onClick={() => seek(i)} title="Read from here">
-                  {s.text}{' '}
+                <span key={i}>
+                  <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)} title="Read from here">{s.text}</span>{' '}
                 </span>
               );
             })}
@@ -281,7 +300,7 @@ export default function Narrator({ sentences, total }) {
             <button type="button" className={`birdsong birdsong--${birdsong}`} onClick={toggleBirdsong}
                     aria-pressed={birdsong === 'on'}
                     title={birdsong === 'on' ? 'Quiet the birds' : 'Let the birds in'}>
-              {birdsong === 'on' ? '♪ birdsong on' : birdsong === 'off' ? '♪ birdsong off' : '♪ birdsong — click anywhere to hear'}
+              {birdsong === 'off' ? '♪ birdsong off' : '♪ birdsong on'}
             </button>
           </div>
         </div>
@@ -309,8 +328,8 @@ export default function Narrator({ sentences, total }) {
           {body.map((s, k) => {
             const i = k + heroCount + subCount;
             return (
-              <span key={i} className={sentClass(i)} onClick={() => seek(i)} title="Read from here">
-                {s.text}{' '}
+              <span key={i}>
+                <span className={sentClass(i)} ref={washRef(i)} onClick={() => seek(i)} title="Read from here">{s.text}</span>{' '}
               </span>
             );
           })}

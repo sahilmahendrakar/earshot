@@ -40,7 +40,7 @@ export default function Home() {
       <section className="proof">
         <img className="sketch" src="/birds/head-study.webp" alt="" aria-hidden="true" />
         <div>
-          <h3>Local, not "private"</h3>
+          <h3>Local and private</h3>
           <p>Not a promise in a policy — an architecture. The model executes in your browser
              via WebGPU. There is no server to send anything to, so there is nothing to leak.</p>
         </div>

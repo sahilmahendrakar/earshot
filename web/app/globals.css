@@ -8,10 +8,10 @@
   --paper:#efe9dc;          /* the sheet */
   --card:#fbf8f1;           /* a taped-in print */
   --ink:#2a2724;
-  --body:#5a544b;
+  --body:#433e37;
   --note:#6b6250;           /* pencil notes */
   --meta:#7a7368;
-  --dim:rgba(42,39,36,.38);
+  --dim:rgba(42,39,36,.46);
   --hl:rgba(104,152,196,.45);/* the wash's blue, for ::selection */
   --live:#c9a227;
   --link:#8a6a3a;
@@ -22,8 +22,7 @@
 html,body{margin:0;padding:0;overflow-x:clip}
 html{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
 body{
-  background:var(--paper) url(/textures/linen.webp) center / 1100px auto repeat;
-  background-attachment:fixed;
+  background:var(--paper) url(/textures/linen.webp) center top / 1100px auto repeat;
   color:var(--ink);
   font-family:var(--font-mono), 'Courier Prime', 'Courier New', monospace;
   min-height:100vh;
@@ -34,7 +33,7 @@ a{color:inherit}
 
 /* the sheet darkens toward its edges, like a scan */
 .vignette{
-  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55;
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.4;
   background:radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(90,70,40,.18) 100%);
 }
 
@@ -88,7 +87,7 @@ a{color:inherit}
   font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note);
   display:inline-block; transform:rotate(-2deg);
 }
-.mast .meta{margin-left:auto; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
+.mast .meta{margin-left:auto; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
 
 /* ---------- hero ---------- */
 .hero{
@@ -100,7 +99,7 @@ h1{
   font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
   font-size:84px; line-height:1; letter-spacing:-.025em; margin:0; white-space:nowrap;
 }
-.standfirst{margin:40px 0 0; max-width:50ch; font-size:16px; line-height:1.95; color:var(--ink)}
+.standfirst{margin:40px 0 0; max-width:50ch; font-size:17px; line-height:1.9; color:var(--ink)}
 .controls{display:flex; align-items:center; gap:22px; margin-top:44px; flex-wrap:wrap}
 .elapsed{font-family:var(--font-hand), 'Homemade Apple', cursive; font-size:15px; color:var(--note)}
 /* the birdsong switch: a pencil note you can tap */
@@ -111,6 +110,7 @@ h1{
 }
 .birdsong:hover{color:var(--link)}
 .birdsong--off{color:var(--meta); text-decoration:line-through; text-decoration-thickness:1px}
+.birdsong--waiting{color:var(--meta)}
 
 /* hand-drawn oval buttons */
 .btn{
@@ -143,16 +143,21 @@ h1{
    Dimming starts once there is a spoken sentence to contrast against. */
 .sent{cursor:pointer; color:var(--ink); transition:color .4s ease, background-color .4s ease}
 .reading .sent{color:var(--dim)}
-/* The live sentence sits under a blue watercolour wash: a raster with ragged,
-   granulated edges, cloned onto every line fragment. The padding and the
-   negative margin cancel, so the wash bleeds past the words without moving them. */
-.reading .sent.live{
-  color:var(--ink);
+/* The live sentence simply keeps full ink while the rest of the page dims. */
+.reading .sent.live{color:var(--ink)}
+/* Two phrases carry a soft blue wash that spreads under the words as they are
+   spoken. --p is the spread (0–118%), driven off the audio clock; the mask's
+   leading edge is feathered so the wash bleeds forward rather than wipes. */
+.sent.washed{display:inline-block; position:relative; z-index:0; --p:0%}
+.sent.washed::before{
+  content:''; position:absolute; z-index:-1; pointer-events:none;
+  left:-.3em; right:-.3em; top:-.12em; bottom:-.06em;
   background:url(/textures/wash-blue.png) center / 100% 100% no-repeat;
-  -webkit-box-decoration-break:clone; box-decoration-break:clone;
-  padding:.06em .22em; margin:0 -.22em;
-  mix-blend-mode:multiply;
+  opacity:0; transition:opacity .9s ease;
+  -webkit-mask-image:linear-gradient(90deg, #000 calc(var(--p) - 20%), transparent var(--p));
+          mask-image:linear-gradient(90deg, #000 calc(var(--p) - 20%), transparent var(--p));
 }
+.reading .sent.washed.live::before, .reading .sent.washed.spoken::before{opacity:1}
 
 /* ---------- the narrated passage ---------- */
 .passage{margin-top:110px}
@@ -180,7 +185,7 @@ h1{
   font-family:var(--font-display), 'Spectral', Georgia, serif; font-weight:300;
   font-size:40px; line-height:1.08; letter-spacing:-.02em; margin:14px 0 16px;
 }
-.showcase p{margin:0; font-size:14px; line-height:1.9; color:var(--body)}
+.showcase p{margin:0; font-size:15px; line-height:1.85; color:var(--body)}
 .print{
   margin:0; position:relative; transform:rotate(-1deg);
   background:var(--card); padding:12px 12px 40px;
@@ -205,7 +210,7 @@ h1{
   font-family:var(--font-hand), 'Homemade Apple', cursive; font-weight:400;
   font-size:20px; color:var(--note); margin:0 0 10px;
 }
-.proof p{margin:0; font-size:14px; line-height:1.9; color:var(--body)}
+.proof p{margin:0; font-size:15px; line-height:1.85; color:var(--body)}
 .proof .sketch{
   position:absolute; right:-190px; top:-190px; width:380px; height:380px; object-fit:contain;
   mix-blend-mode:multiply; transform:rotate(-8deg); pointer-events:none;
@@ -222,7 +227,7 @@ h1{
 }
 .install h2 em{font-style:italic}
 .install .req{margin:0 0 28px; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--meta)}
-.install .reqs{margin:22px 0 0; font-size:12.5px; line-height:1.8; color:var(--meta); max-width:54ch}
+.install .reqs{margin:22px 0 0; font-size:13.5px; line-height:1.8; color:var(--body); max-width:54ch}
 .install .flyaway{
   width:100%; aspect-ratio:1; object-fit:contain; mix-blend-mode:multiply;
   transform:rotate(6deg) scale(1.6); pointer-events:none;
@@ -251,11 +256,11 @@ footer a:hover{color:var(--link)}
   font-family:var(--font-hand), 'Homemade Apple', cursive; font-weight:400;
   font-size:20px; color:var(--note); margin:52px 0 12px;
 }
-.prose p, .prose li{font-size:14px; line-height:1.9; color:var(--body); margin:0 0 14px}
+.prose p, .prose li{font-size:15px; line-height:1.85; color:var(--body); margin:0 0 14px}
 .prose ul{padding-left:1.2em; margin:0}
 .prose li{margin-bottom:10px}
 .prose strong{
-  color:var(--ink); font-weight:400; mix-blend-mode:multiply;
+  color:var(--ink); font-weight:400;
   background:url(/textures/wash-blue.png) center / 100% 100% no-repeat;
   -webkit-box-decoration-break:clone; box-decoration-break:clone; padding:.06em .22em; margin:0 -.22em;
 }
