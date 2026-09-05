@@ -34,6 +34,8 @@ export default function Narrator({ sentences, total }) {
   const idxRef = useRef(-1);      // read inside rAF without re-arming the loop
   const lastTick = useRef(0);
   const washRefs = useRef({});    // sentence index -> element, for the spreading wash
+  const sentRefs = useRef({});    // sentence index -> element, for following the voice
+  const passageRef = useRef(null);
 
   const hero = sentences.filter((s) => s.zone === 'hero');
   const sub  = sentences.filter((s) => s.zone === 'sub');
@@ -201,6 +203,21 @@ export default function Narrator({ sentences, total }) {
     };
   }, [flyIn, idle]);
 
+  // The page follows the voice: when the live sentence has left the comfortable
+  // band of the viewport, scroll so it sits a third of the way down. Entering the
+  // passage scrolls to its label instead, so the section arrives as a whole.
+  const follow = useCallback((i) => {
+    if (i < 0) return;
+    const first = sentences.findIndex((s) => s.zone === 'body');
+    const el = i === first ? passageRef.current : sentRefs.current[i];
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const inBand = r.top >= 72 && r.bottom <= innerHeight - 120;
+    if (inBand && i !== first) return;
+    const top = scrollY + r.top - innerHeight * (i === first ? 0.14 : 0.3);
+    scrollTo({ top: Math.max(0, top), behavior: reduced.current ? 'auto' : 'smooth' });
+  }, [sentences]);
+
   /* ---- the clock ---- */
   useEffect(() => {
     const tick = () => {
@@ -209,7 +226,7 @@ export default function Narrator({ sentences, total }) {
         const t = a.currentTime;
         if (t - lastTick.current > 0.25) { lastTick.current = t; setElapsed(t); }
         const i = sentences.findIndex((s) => t >= s.start && t < s.end);
-        if (i !== idxRef.current) { idxRef.current = i; setIdx(i); }
+        if (i !== idxRef.current) { idxRef.current = i; setIdx(i); follow(i); }
         // the wash spreads at the speaking rate, straight off the clock via refs,
         // so it never waits on a React render
         for (const [k, el] of Object.entries(washRefs.current)) {
@@ -223,7 +240,7 @@ export default function Narrator({ sentences, total }) {
     };
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [sentences]);   // NOT idx — that rebuilt the loop mid-speech
+  }, [sentences, follow]);   // NOT idx — that rebuilt the loop mid-speech
 
   const toggle = async () => {
     const a = audioRef.current;
@@ -268,7 +285,10 @@ export default function Narrator({ sentences, total }) {
     const washed = WASHED.has(sentences[i].text);
     return `sent${washed ? ' washed' : ''}${idx === i ? ' live' : ''}${washed && idx > i ? ' spoken' : ''}`;
   };
-  const washRef = (i) => (WASHED.has(sentences[i].text) ? (el) => { washRefs.current[i] = el; } : undefined);
+  const washRef = (i) => (el) => {
+    sentRefs.current[i] = el;
+    if (WASHED.has(sentences[i].text)) washRefs.current[i] = el;
+  };
 
   const birdsongLabel = birdsong === 'off' ? 'Birdsong off — let the birds in' : 'Birdsong on — quiet the birds';
 
@@ -279,8 +299,8 @@ export default function Narrator({ sentences, total }) {
         <span className="note">runs entirely on your machine</span>
         <button type="button" className={`birdsong birdsong--${birdsong}`} onClick={toggleBirdsong}
                 aria-pressed={birdsong !== 'off'} aria-label={birdsongLabel} title={birdsongLabel}>
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
-               strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor"
+               strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M9.5 18V5.8l9-2.2v11.2" />
             <ellipse cx="7" cy="18.2" rx="2.6" ry="1.9" />
             <ellipse cx="16" cy="15" rx="2.6" ry="1.9" />
@@ -332,7 +352,7 @@ export default function Narrator({ sentences, total }) {
       </section>
 
       <section className={`passage${reading ? ' reading' : ''}`}>
-        <div className={`label${playing ? ' live' : ''}`}>
+        <div className={`label${playing ? ' live' : ''}`} ref={passageRef}>
           <span className="dot" />
           {playing ? 'now speaking — Kokoro-82M, voice af_heart' : 'press listen. the page will read itself.'}
         </div>

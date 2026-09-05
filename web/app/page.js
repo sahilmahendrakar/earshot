@@ -36,8 +36,8 @@ export default function Home() {
         <img className="sketch" src="/birds/head-study.webp" alt="" aria-hidden="true" />
         <div>
           <h3>Local and private</h3>
-          <p>Not a promise in a policy — an architecture. The model executes in your browser
-             via WebGPU. There is no server to send anything to, so there is nothing to leak.</p>
+          <p>The model executes in your browser via WebGPU. There is no server to send
+             anything to, so there is nothing to leak.</p>
         </div>
         <div>
           <h3>Reads the real page</h3>
@@ -59,7 +59,7 @@ export default function Home() {
       <section className="install">
         <div className="wash wash--ochre" aria-hidden="true" />
         <div>
-          <h2>Install it and press <em>⌥R</em></h2>
+          <h2>Install it and press <em>⌥ R</em></h2>
           <p className="req">Chrome, Edge or Arc · requires WebGPU</p>
           {/* TODO: swap for the Chrome Web Store URL once the listing is live */}
           <a className="btn cta" href="#" aria-disabled="true">Add to Chrome — soon</a>

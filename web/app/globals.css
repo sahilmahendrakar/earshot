@@ -90,15 +90,15 @@ a{color:inherit}
 .mast .meta{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--meta)}
 /* the birdsong switch: a pencilled note in the margin, ink when the birds are singing */
 .birdsong{
-  appearance:none; background:none; border:0; padding:4px; margin-left:auto; cursor:pointer;
-  color:var(--ink); display:inline-flex; align-self:center; transform:rotate(-8deg);
+  appearance:none; background:none; border:0; padding:0 4px; margin-left:auto; cursor:pointer;
+  color:var(--note); display:inline-block; position:relative; top:3px; line-height:0;
   transition:color .2s, transform .2s;
 }
-.birdsong svg{display:block}
-.birdsong:hover{color:var(--link); transform:rotate(-8deg) scale(1.08)}
-.birdsong--waiting{color:var(--note)}
-.birdsong--off{color:var(--meta)}
-.birdsong__strike{stroke-width:1.4}
+.birdsong svg{display:inline-block; vertical-align:baseline; transform:rotate(-8deg)}
+.birdsong:hover{color:var(--link); transform:scale(1.1)}
+.birdsong--waiting{color:var(--meta)}
+.birdsong--off{color:var(--meta); opacity:.75}
+.birdsong__strike{stroke-width:1.2}
 
 /* ---------- hero ---------- */
 .hero{
@@ -127,7 +127,7 @@ h1{
 .cta{border-radius:52% 48% 50% 50% / 45% 55% 45% 55%; padding:15px 30px}
 
 /* the bird: a flipbook of eight watercolour frames */
-.bird{margin:-220px -110px -80px -20px; position:relative; transform:rotate(-2deg)}
+.bird{margin:-220px -110px -80px -20px; position:relative; transform:rotate(-2deg); pointer-events:none}
 .bird__box{aspect-ratio:4/5; position:relative}
 .bird__frame{
   position:absolute; inset:0; pointer-events:none;
