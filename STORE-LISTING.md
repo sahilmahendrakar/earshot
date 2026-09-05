@@ -58,7 +58,7 @@ page you are reading never leaves your machine. After a one-time model download 
 works completely offline.
 
 FEATURES
-• Highlights each sentence on the real page as it is read — not in a separate reader pane
+• Highlights each sentence on the real page as it is read
 • Right-click any word and choose "Read aloud from here" to start mid-article
 • 12 voices, including several rated A and B for quality
 • Adjustable speed from 0.9x to 2x
@@ -66,7 +66,7 @@ FEATURES
 • Compact floating controls that stay out of the way
 
 REQUIREMENTS
-• A browser and machine with WebGPU support (Chrome/Edge/Arc 113+ on reasonably
+• A browser and machine with WebGPU support (Chrome-based browsers, version 113 or newer, on reasonably
   recent hardware). The extension checks this on first run and tells you clearly if
   your system cannot run it.
 • A one-time ~310 MB voice model download on first use. Cached afterwards.

@@ -1,5 +1,5 @@
 {
-  "total": 107.605,
+  "total": 103.32,
   "sentences": [
     {
       "zone": "hero",
@@ -87,105 +87,111 @@
     },
     {
       "zone": "showcase-p",
-      "text": "Not a stripped-down reader view beside the article — the article itself, with the spoken sentence lit as it goes.",
+      "text": "The article itself, with the spoken sentence lit as it goes.",
       "start": 47.15,
-      "end": 54.18
+      "end": 51.01
     },
     {
       "zone": "proof-1h",
       "text": "Local and private",
-      "start": 54.18,
-      "end": 55.7
+      "start": 51.01,
+      "end": 52.53
     },
     {
       "zone": "proof-1p",
       "text": "The model executes in your browser via WebGPU.",
-      "start": 55.7,
-      "end": 59.39
+      "start": 52.53,
+      "end": 56.22
     },
     {
       "zone": "proof-1p",
       "text": "There is no server to send anything to, so there is nothing to leak.",
-      "start": 59.39,
-      "end": 63.225
+      "start": 56.22,
+      "end": 60.055
     },
     {
       "zone": "proof-2h",
       "text": "Reads the real page",
-      "start": 63.225,
-      "end": 64.815
+      "start": 60.055,
+      "end": 61.645
     },
     {
       "zone": "proof-2p",
-      "text": "Sentences are highlighted on the page itself, not in a stripped-down reader pane.",
-      "start": 64.815,
-      "end": 69.705
+      "text": "Sentences are highlighted on the page itself, right where you are reading.",
+      "start": 61.645,
+      "end": 65.965
     },
     {
       "zone": "proof-2p",
       "text": "Right-click any word to start from there.",
-      "start": 69.705,
-      "end": 71.855
+      "start": 65.965,
+      "end": 68.115
     },
     {
       "zone": "proof-3h",
       "text": "Works offline",
-      "start": 71.855,
-      "end": 73.135
+      "start": 68.115,
+      "end": 69.395
     },
     {
       "zone": "proof-3p",
       "text": "One ~310 MB voice download on first use.",
-      "start": 73.135,
-      "end": 77.445
+      "start": 69.395,
+      "end": 73.705
     },
     {
       "zone": "proof-3p",
-      "text": "After that it never touches the network again — on a plane, in a tunnel, forever.",
-      "start": 77.445,
-      "end": 82.27
+      "text": "After that, it never touches the network again.",
+      "start": 73.705,
+      "end": 76.545
+    },
+    {
+      "zone": "proof-3p",
+      "text": "You can use it on a plane, in a tunnel, or in the wilderness.",
+      "start": 76.545,
+      "end": 79.965
     },
     {
       "zone": "proof-4h",
       "text": "Free forever",
-      "start": 82.27,
-      "end": 83.38
+      "start": 79.965,
+      "end": 81.075
     },
     {
       "zone": "proof-4p",
-      "text": "Open source, Apache-2.0 components, no subscription and no upsell.",
-      "start": 83.38,
-      "end": 88.91
+      "text": "Open source, with nothing to pay for — no subscription, no upsell.",
+      "start": 81.075,
+      "end": 85.325
     },
     {
       "zone": "proof-4p",
-      "text": "Kokoro-82M, ONNX Runtime and Transformers.js do the work.",
-      "start": 88.91,
-      "end": 94.105
+      "text": "The voice is a small open model that lives in your browser, and always will.",
+      "start": 85.325,
+      "end": 89.905
     },
     {
       "zone": "install-h",
       "text": "Install it and press ⌥ R",
-      "start": 94.105,
-      "end": 96.275
+      "start": 89.905,
+      "end": 92.075
     },
     {
       "zone": "install-req",
-      "text": "Chrome, Edge or Arc · requires WebGPU",
-      "start": 96.275,
-      "end": 99.805
+      "text": "Chrome-based browsers · requires WebGPU",
+      "start": 92.075,
+      "end": 95.52
     },
     {
       "zone": "install-reqs",
       "text": "Needs a WebGPU-capable browser and machine.",
-      "start": 99.805,
-      "end": 103.39
+      "start": 95.52,
+      "end": 99.105
     },
     {
       "zone": "install-reqs",
       "text": "Chickadee checks on first run and tells you plainly if yours can’t run it.",
-      "start": 103.39,
-      "end": 107.605
+      "start": 99.105,
+      "end": 103.32
     }
   ]
 }
