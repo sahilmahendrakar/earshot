@@ -232,17 +232,27 @@
     lastPoint = { x: e.clientX + scrollX, y: e.clientY + scrollY };   // document coords
   }, true);
 
+  // The reader is injected on demand (activeTab), so on a page it has never run on
+  // the right-click that opened the menu happened before this listener existed and
+  // the point is unknown. Start at the first sentence in view instead: the click was
+  // in the viewport, so this lands within a paragraph or two of it.
+  function firstVisibleSentence() {
+    const top = scrollY + 8, bottom = scrollY + innerHeight;
+    for (let i = 0; i < boxes.length; i++)
+      for (const bx of boxes[i]) if (bx.b > top && bx.t < bottom) return i;
+    return 0;
+  }
+  function resolvePoint(pt) {
+    const i = pt ? sentenceAtPoint(pt.x, pt.y) : -1;
+    return i >= 0 ? i : firstVisibleSentence();
+  }
   function readFromPoint() {
     if (!sentences.length || !boxes.length) {      // reader not started yet
       const pending = lastPoint;
-      start(() => {
-        const i = pending ? sentenceAtPoint(pending.x, pending.y) : -1;
-        if (i >= 0) send({ type: 'KL_GOTO', i });
-      });
+      start(() => send({ type: 'KL_GOTO', i: resolvePoint(pending) }));
       return;
     }
-    const i = lastPoint ? sentenceAtPoint(lastPoint.x, lastPoint.y) : -1;
-    send({ type: 'KL_GOTO', i: i >= 0 ? i : 0 });
+    send({ type: 'KL_GOTO', i: resolvePoint(lastPoint) });
   }
 
   /* ---------- engine plumbing ---------- */

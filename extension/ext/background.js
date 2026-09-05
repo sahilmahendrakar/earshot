@@ -1,7 +1,10 @@
+// The reader is never injected ahead of time. Every entry point here (toolbar,
+// keyboard command, context menu) is a user gesture that grants activeTab for that
+// tab, and that is the only page access the extension has.
 async function send(tabId, msg) {
   try { return await chrome.tabs.sendMessage(tabId, msg); }
   catch (e) {
-    // Content script not present (extension just installed/reloaded) — inject it.
+    // Content script not present on this page yet — inject it.
     await chrome.scripting.executeScript({ target: { tabId }, files: ['content.js'] });
     return await chrome.tabs.sendMessage(tabId, msg);
   }

@@ -40,9 +40,10 @@ export default function Privacy() {
 
         <h2>Permissions, and why each is needed</h2>
         <ul>
-          <li><strong>Access to websites</strong> — required to read the text of whatever page you
-            ask it to read. Used only on pages where you explicitly start the reader.</li>
-          <li><strong>activeTab, scripting</strong> — to run the reader on the current tab on demand.</li>
+          <li><strong>activeTab</strong> — access to the one page you ask it to read, granted only
+            when you start the reader (toolbar button, ⌥R, or the right-click menu). It has no
+            access to any other tab and is never loaded into pages ahead of time.</li>
+          <li><strong>scripting</strong> — to run the reader on that tab on demand.</li>
           <li><strong>storage</strong> — to remember your voice and speed.</li>
           <li><strong>contextMenus</strong> — to add the “Read aloud from here” right-click item.</li>
         </ul>

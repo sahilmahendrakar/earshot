@@ -19,18 +19,15 @@ plays it back, highlighting each sentence as it is read.
 
 ## Permission justifications (required, one per permission)
 
-**host_permissions `<all_urls>`**
-The extension's sole function is reading aloud whatever page the user is on, so it
-must be able to read the text content of arbitrary pages. It only activates on a page
-when the user explicitly starts it (toolbar button, Alt+R, or the right-click menu).
-No page content leaves the device.
-
 **activeTab**
-Used to identify and act on the tab the user has asked to read.
+The extension's sole function is reading aloud the page the user is on. activeTab
+gives it access to that one tab only, and only after an explicit user gesture: the
+toolbar button, the Alt+R shortcut, or the "Read aloud from here" context-menu item.
+It is never injected ahead of time and has no access to any other tab. No page
+content leaves the device.
 
 **scripting**
-Used to inject the reader into the current tab when the user starts it, including on
-tabs that were already open before the extension was installed or updated.
+Used to inject the reader into the current tab, on demand, when the user starts it.
 
 **storage**
 Stores only the user's chosen voice and default playback speed.

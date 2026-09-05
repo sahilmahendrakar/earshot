@@ -29,9 +29,10 @@ Google account, exactly like your other Chrome settings. We have no access to it
 The downloaded voice model is cached in your browser's storage.
 
 ## Permissions and why they are needed
-- **`<all_urls>` host access** — required to read the text of whatever page you ask
-  it to read aloud. It is used only on pages where you explicitly start the reader.
-- **`activeTab`, `scripting`** — to run the reader on the current tab on demand.
+- **`activeTab`** — access to the one page you ask it to read, granted only when you
+  start the reader (toolbar button, Alt+R, or the right-click menu). The extension
+  has no access to any other tab and is never loaded into pages ahead of time.
+- **`scripting`** — to run the reader on that tab on demand.
 - **`storage`** — to remember your voice and speed preferences.
 - **`contextMenus`** — to add the "Read aloud from here" right-click item.
 

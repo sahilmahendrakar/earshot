@@ -33,13 +33,14 @@ config is **below realtime**. See ../SPIKE-in-browser.md. Do not "optimize" to q
 onnxruntime-node) to an empty stub. Marking them `--external` instead leaves a bare
 `require()` that throws `Dynamic require of "path" is not supported` at load.
 
-## Gotcha: host permissions must be REQUIRED, not optional
-`host_permissions: ["<all_urls>"]` is required, not optional. With
-`optional_host_permissions` the content script silently never runs until the user
-grants site access by hand — and `chrome.developerPrivate.addHostPermission` only
-changes the *UI* state, not the real grant (that needs `chrome.permissions.request()`
-with a user gesture), so it looks granted while `executeScript` keeps failing with
-"Cannot access contents of the page."
+## Permissions: activeTab only
+There is no host permission and no static content script. Every entry point (toolbar
+popup, Alt+R / Alt+P commands, the context-menu item) is a user gesture that grants
+`activeTab` for that tab, and `background.js` injects `content.js` on demand. The grant
+survives tab switches (reading continues in the background) and ends when the tab
+navigates. One consequence: on a page the reader has never run on, "Read aloud from
+here" cannot know where the right-click landed (Chrome exposes no coordinates and the
+listener did not exist yet), so it starts at the first sentence in view instead.
 
 ## Gotcha: reloading during development
 `chrome.developerPrivate.reload` (and the reload button) refreshes code but **does not
